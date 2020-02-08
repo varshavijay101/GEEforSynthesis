@@ -1,0 +1,11 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var landsatsf = ee.ImageCollection("LANDSAT/LC08/C01/T2_SR");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+////////// Filter Image Collection ////////////////
+ /*
+ 2020 Varsha Vijay GEEforSynthesis 
+ https://sites.google.com/view/geeforsynthesis
+*/
+
+/*
+Load Landsat 8 Surface Reflectance Tier 2 Image Collection
