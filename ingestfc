@@ -43,9 +43,36 @@ This was not successful because it uses UTM Zone 18S projection.
 This is not compatible with GEE which uses EPSG 4326.
 
 Lets try again with deforestoilpalmWGS.zip
+Once ingested add to code editor *note difference in object type*
 */
 
-var oilpalmperu= ee.FeatureCollection('users/varshavijay101/GEEforSynthesis/oilpalmWGS')
+var name= ee.FeatureCollection('name')
 
+/*
+A quicker alternative is hovering over the asset and
+clicking the right arrow to import into the code editor
 
+Print to console
+*/
+
+print(oilpalmperu)
+
+/*
+These data are derived from an image so are not stored
+in an ideal format.  
+
+Looking at the properties we can see that
+deforestation year is stored in the gridcode column
+
+What is the explanation for the number of features?
+*/
+
+/*
+Adding to the Map shows a much less interpretable result
+but try here using the Map.addLayer function
+because we dont care about visualization too much use {}
+for the visualization parameters and name the output
+*/
+
+Map.addLayer()
 
