@@ -1,6 +1,3 @@
-/**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var census = ee.FeatureCollection("TIGER/2010/ZCTA5");
-/***** End of imports. If edited, may not auto-convert in the playground. *****/
 /// 2020 Varsha Vijay GEEforSynthesis 
 /// https://sites.google.com/view/geeforsynthesis  
 ////////// Explore Earth Engine Data Catalog////////////////
