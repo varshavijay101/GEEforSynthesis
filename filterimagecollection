@@ -56,9 +56,9 @@ var landsatsfDC = landsat1417
 print(landsatsfDC,"dc")
 
 /*
-We want to compare the mean image for DC summer (May-Aug) to
-DC winter(Dec-Feb) for the sample years 14-17
-First filter to summer and winter images
+We want to calculate the mean image for summer (May-Aug) 
+for the sample years 14-17
+First filter to summer images
 */
 
 var DCsummer= landsatsfDC
@@ -71,7 +71,7 @@ What kind of object is this?
 */
 
 /*
-To create the mean image for summer and winter we reduce
+To create the mean image for summer we reduce
 the ImageCollection to a single image using the mean function
 and print the result
 */
@@ -81,7 +81,7 @@ print(DCsummermn)
 
 /*
 Great job!
-Now we have created mean summer and winter images.
+Now we have created a mean summer image.
 However, we are often concerned about the impacts of 
 cloud cover on our estimates of surface reflectance.
 Now we filter images with high cloud cover from the
@@ -95,9 +95,22 @@ Printing the ImageCollection showed that each image has a
 property "CLOUD_COVER" which is an estimate of the percent cloud
 cover for an image.
 Filter images with > 50% CLOUD_COVER
+Fill in the function with the correct operator
+*hint- use the Docs tab to find syntax for defined functions*
 */
 
-var DCsummercloudfilt = DCsummer.
+var DCsummercloudfilt = DCsummer
+.filterMetadata('CLOUD_COVER','greater_than', 50)
+
+print(DCsummercloudfilt)
+
+/*
+Calculate mean image from cloud filtered collection
+*/
+
+var DCsummerfilt=DCsummercloudfilt.mean()
+print(DCsummerfilt,"filt")
+
 
 
 
