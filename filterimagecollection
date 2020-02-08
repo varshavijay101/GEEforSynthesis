@@ -1,16 +1,3 @@
-/**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var landsatsf = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR"),
-    dc = 
-    /* color: #bf04c2 */
-    /* shown: false */
-    ee.Geometry.Polygon(
-        [[[-76.32045512263232, 39.41856363710903],
-          [-76.90822367731982, 39.61772842029389],
-          [-77.68825297419482, 39.21031614781048],
-          [-77.51247172419482, 38.6333720136652],
-          [-76.78737406794482, 38.56038750928955],
-          [-76.36989359919482, 38.99718025361767]]]);
-/***** End of imports. If edited, may not auto-convert in the playground. *****/
 ////////// Filter Image Collection ////////////////
  /*
  2020 Varsha Vijay GEEforSynthesis 
