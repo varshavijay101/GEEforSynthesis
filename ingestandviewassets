@@ -1,3 +1,6 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var oilpalmperu = ee.Image("users/varshavijay101/GEEforSynthesis/deforestoilpalmWGSREV");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 //////////Ingest Assets from local storage////////////////
  /*
  2020 Varsha Vijay GEEforSynthesis 
@@ -39,6 +42,6 @@ When complete find asset in GEEforSynthesis folder
 and add image to this script
 */
 
-var name = ee.Image('assetlocation')
-
-/*
+//var name = ee.Image('assetlocation')
+//Print image
+print(oilpalmperu.projection().nominalScale())
