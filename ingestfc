@@ -30,5 +30,18 @@ tabular data or shapefiles stored locally
 Using the oil palm deforestation data we practice 
 ingesting feature assets
 
+Again click the Assets tab on the left and 
+select new and Shape files
+Upload the deforestoilpalm.zip folder
+*/
+
+/*
+This was not successful because it uses UTM Zone 18S projection.
+This is not compatible with GEE which uses EPSG 4326.
+
+Lets try again with deforestoilpalmWGS.zip
+
+
+
 
 
