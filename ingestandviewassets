@@ -4,7 +4,8 @@
  https://sites.google.com/view/geeforsynthesis
 */
 
-/* The Earth Engine data catalog contains many common datasets 
+/* 
+The Earth Engine data catalog contains many common datasets 
 but many research projects use data obtained and stored locally
 
 In this excercise we will use data from 
@@ -18,10 +19,24 @@ from the Oil_palm_Peru folder in the Resources section
 of the google site for this workshop
 
 Once you download this dataset, unzip and find 4 files:
-deforestoilpalmWGS.tif, deforestoilpalm.zip
+deforestoilpalm.tif, deforestoilpalm.zip
 deforestoilpalmWGS.zip, README
-
 */
+
+/*
+Look at the left menu to the side of the code editor and click 
+on the Assets tab.  
+Click NEW and create new folder "GEEforSynthesis"
+Click NEW and click image upload
+find deforestoilpalm.tif in local storage and save to new folder
+*/
+
+/*
+Look at the right menu to the side of the editor and click 
+on the Tasks tab
+Monitor upload
+When complete find asset in GEEforSynthesis flder
+
 
 var crop1k = ee.Image('users/varshavijay101/AgricultureBiodiversity/crop1k')
 
