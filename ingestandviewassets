@@ -1,6 +1,3 @@
-/**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var oilpalmperu = ee.Image("users/varshavijay101/GEEforSynthesis/deforestoilpalmWGSREV");
-/***** End of imports. If edited, may not auto-convert in the playground. *****/
 //////////Ingest Assets from local storage////////////////
  /*
  2020 Varsha Vijay GEEforSynthesis 
@@ -52,5 +49,16 @@ and view in Console.
 
 /*
 Using print we can learn about the image but it is often helpful
-to 
+to actually view spatial data on a map
 
+We do this using the Map. function.
+This is a good place to start exploring the Docs tab to the left
+this gives you function syntax
+*/
+
+Map.addLayer(name)
+
+/*
+YAY! Our first visualization.
+But this visualization is not ideal because even
+*/
