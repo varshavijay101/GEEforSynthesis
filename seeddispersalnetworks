@@ -38,18 +38,34 @@ some of the unique resources of this environment.
 
 /*
 Add Global Human Modification (gHM) dataset to code editor
+print dataset
 */
 
-//human mod imagecollection to image
-print(humanmod.first().propertyNames())
-var ghm=ee.Image(humanmod.first())
+/*
+For our analysis we want to use the gHM data as an image
+not an image collection. To do this we need to extract the single
+image from the image collection.
+This can be done by calling the image directly using the
+Image id found when printing the collection like below
+*/
+
+var name= ee.Image('imageid')
+
+/*
+or by selecting the first image in this image collection
+or be filtering the image collection as shown in the previous collection.
+Select the image using the first() function
+*/
+
+//print(humanmod.first().propertyNames())
+//var ghm=ee.Image(humanmod.first())
 //print(ghm)
 
 //Vizualize human mod index
 var vizparams= {min:0,max:1,palette: ['0000FF','FFFF00','FF0000']}
 Map.addLayer(ghm,vizparams,'ghm')
-print('ghm',humanmod)
-print(ghm.projection().nominalScale())
+//print('ghm',humanmod)
+//print(ghm.projection().nominalScale())
 
 //Import fusion table input for network sample locations and converts to feature collection
 var networks = ee.FeatureCollection('ft:1T5uT7HqOoi8NMiNAKz-AHGytpuinpjSS4HItZ_ru');
