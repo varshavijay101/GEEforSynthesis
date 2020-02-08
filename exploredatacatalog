@@ -1,35 +1,42 @@
-/// 2020 Varsha Vijay GEEforSynthesis 
-/// https://sites.google.com/view/geeforsynthesis
-
-
 ////////// Explore Earth Engine Data Catalog////////////////
-/// Use search bar above to find places, rasters, or tables
+ /*
+ 2020 Varsha Vijay GEEforSynthesis 
+ https://sites.google.com/view/geeforsynthesis
+*/
 
-///////// Find Places!
-/// Search for your favorite place
-/// Click on the result and observe what happens
+/*Use search bar above to find places, rasters, or tables
 
-///////// Find Rasters!
-/// Search for raster data in the search bar
-/// Search: forest or carbon
-/// Click on data
-/// Review information available
-/// Click import
-/// Note data type on import
-/// Is it an Image or ImageCollection?
-/// Name import within script
-print() //add name as argument
-/// Review output in Console
+                      Find Places!
+Search for your favorite place
+Click on the result and observe what happens
+*/
 
-////////// Find Tables!
-/// Search for tabular data in the search bar
-/// Search: country or census
-/// Click on data
-/// Review information available
-/// Click import
-/// Name import within script
-print() //add name as argument
-/// What was the result?
-/// If Error, try to print a subset
-//print(.limit(n))
-/// Review output on Console
+/*
+                    Find Rasters!
+Search for raster data in the search bar
+Search: forest or carbon
+Click on data
+Review information available
+Click import
+Note data type on import
+Is it an Image or ImageCollection?
+Name import within script
+Review output in Console
+*/
+print()
+
+/*
+                  Find Tables!
+Search for tabular data in the search bar
+Search: country or census
+Click on data
+Review information available
+Click import
+Name import within script
+Print table
+What was the result?
+If Error, try to print a subset using function
+limit()
+Review output in console
+*/
+print()//*hint* syntax uses a . after the object name
