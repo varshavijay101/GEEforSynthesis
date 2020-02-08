@@ -64,6 +64,8 @@ First filter to summer and winter images
 var DCsummer= landsatsfDC
 .filter(ee.Filter.calendarRange(5,8,'month'))
 
+print(DCsummer,"summer")
+
 /*
 What kind of object is this?
 */
@@ -74,8 +76,22 @@ the ImageCollection to a single image using the mean function
 and print the result
 */
 
-var DCsummermn= DCsummer.reduce(mean)
+var DCsummermn= DCsummer.mean()
 print(DCsummermn)
+
+/*
+Great job!
+Now we have created mean summer and winter images.
+However, we are often concerned about the impacts of 
+cloud cover on our estimates of surface reflectance.
+Now we filter images with high cloud cover from the
+summer and winter image collections before computing a mean image
+*/
+
+/*
+We do this using the filterMetadata function.
+Printing the image
+var DCsummercloudfilt = DCsummer.
 
 
 
