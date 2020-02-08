@@ -1,5 +1,7 @@
 /// 2020 Varsha Vijay GEEforSynthesis 
-/// https://sites.google.com/view/geeforsynthesis  
+/// https://sites.google.com/view/geeforsynthesis
+
+
 ////////// Explore Earth Engine Data Catalog////////////////
 /// Use search bar above to find places, rasters, or tables
 
@@ -19,7 +21,7 @@
 print() //add name as argument
 /// Review output in Console
 
-////////// Find Tables
+////////// Find Tables!
 /// Search for tabular data in the search bar
 /// Search: country or census
 /// Click on data
