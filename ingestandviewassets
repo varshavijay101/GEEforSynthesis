@@ -42,6 +42,7 @@ When complete find asset in GEEforSynthesis folder
 and add image to this script
 */
 
-//var name = ee.Image('assetlocation')
+var name = ee.Image('assetlocation')
+
 //Print image
 print(oilpalmperu.projection().nominalScale())
