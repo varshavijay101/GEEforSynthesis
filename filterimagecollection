@@ -1,6 +1,9 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var landsatsf = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR"),
-    dc = /* color: #bf04c2 */ee.Geometry.Polygon(
+    dc = 
+    /* color: #bf04c2 */
+    /* shown: false */
+    ee.Geometry.Polygon(
         [[[-76.32045512263232, 39.41856363710903],
           [-76.90822367731982, 39.61772842029389],
           [-77.68825297419482, 39.21031614781048],
@@ -17,18 +20,18 @@ var landsatsf = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR"),
 /*
 Load Landsat 8 Surface Reflectance Tier 2 Image Collection
 and print to console *hint think about number of objects in collection*
+Add name for interpretability
 */
 
-print(landsatsf.limit(1),"landsatsf")
+print(name,"name")
 
 /*
-Filter for images collected from 2014-2017
+Filter for images collected from 2014-2020
 */
 
-var landsat1417=landsatsf
-.filterDate('2015-01-01', '2020-12-31')
+var name=name
+.filterDate('yyyy-mm-dd', 'yyyy-mm-dd')
 
-print(landsat1417.limit(1),"landsat1417")
 
 /*
 We are interested in images collected in the Washington DC area
@@ -47,10 +50,9 @@ Print to see data type
 Use to filter ImageCollection
 */
 
-var landsatsfDC = landsat1417
-.filterBounds(dc)
+var name = name
+.filterBounds(geometry)
 
-print(landsatsfDC,"dc")
 
 /*
 We want to calculate the mean image for summer (May-Aug) 
@@ -91,22 +93,20 @@ is using the filterMetadata function.
 Printing the ImageCollection showed that each image has a
 property "CLOUD_COVER" which is an estimate of the percent cloud
 cover for an image.
-Filter images with < 50% CLOUD_COVER
+Filter images with < 10% CLOUD_COVER
 Fill in the function with the correct operator
 *hint- use the Docs tab to find syntax for defined functions*
 */
 
-var DCsummercloudfilt = DCsummer
-.filterMetadata('CLOUD_COVER','less_than', 30)
+var name = name
+.filterMetadata('CLOUD_COVER', operator, threshold)
 
-print(DCsummercloudfilt)
 
 /*
 Calculate mean image from cloud filtered collection
 */
 
-var DCsummerfilt=DCsummercloudfilt.mean()
-print(DCsummerfilt,"filt")
+var name = name.mean()
 
 /*
 Map false color image using bands 3,4,5.
@@ -117,7 +117,12 @@ near-infared to explore vegetation patterns
 for a guide to Landsat 8 bands and image composites)
 */
 
-// Below I give you the visualization parameters for the Map.addLayer function
+/*
+Below I give you the visualization parameters for the Map.addLayer function.
+Note that Landsat SR values to be scaled by 0.0001 
+to get true SR values between 0 and 1.
+*/
+
 var vizParams = {
   bands: ['B5', 'B4', 'B3'],
   min: -30,
@@ -125,9 +130,18 @@ var vizParams = {
   gamma: [0.95, 1.1, 1]
 };
 
-// Center the map and display the image.
-Map.setCenter(-76.499, 38.957, 10); // Annapolis, Maryland (home of SESYNC!)
-Map.addLayer(DCsummerfilt, vizParams, 'summer east coast');
+/*
+Center the map on Annapolis, Maryland (home of SESYNC!).
+Obtain coordinates by opening Inspector tab and clicking Annapolis city
+or your favorite DC area location.
+Copy coordinates into Map
+and display the image.
+*/
+
+Map.setCenter(Longitude, Latitude, zoom level);
+Map.addLayer(name, vizParams, 'name');
+
+
 
 
 
