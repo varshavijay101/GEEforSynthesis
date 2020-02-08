@@ -50,7 +50,7 @@ First filter to summer images
 */
 
 var DCsummer= landsatsfDC
-.filter(ee.Filter.calendarRange(5,8,'month'))
+.filter(ee.Filter.calendarRange(start,end,'month'))
 
 print(DCsummer,"summer")
 
