@@ -36,7 +36,9 @@ Look at the right menu to the side of the editor and click
 on the Tasks tab
 Monitor upload
 When complete find asset in GEEforSynthesis folder
+and add image to this script
 */
 
 var name = ee.Image('assetlocation')
 
+/*
