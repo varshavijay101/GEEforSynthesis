@@ -1,5 +1,17 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var landsatsf = ee.ImageCollection("LANDSAT/LC08/C01/T2_SR");
+var landsatsf = ee.ImageCollection("LANDSAT/LC08/C01/T2_SR"),
+    dc = 
+    /* color: #d63000 */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.Polygon(
+        [[[-77.34279507798385, 39.2209973766704],
+          [-77.34279507798385, 38.635559190877565],
+          [-76.57924527329635, 38.635559190877565],
+          [-76.57924527329635, 39.2209973766704]]], null, false);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 ////////// Filter Image Collection ////////////////
  /*
@@ -12,4 +24,17 @@ Load Landsat 8 Surface Reflectance Tier 2 Image Collection
 and print to console *hint think about number of objects in collection*
 */
 print(landsatsf.limit(1))
+
+/*
+We are interested in images collected in the DC area
+Use your Map below to navigate to DC and use the
+draw a rectangle button on the top left of the map to draw
+around the greater DC area.
+
+You created a geometry object!
+Scroll up to imports to see this in your code editor.
+Name object.
+
+
+*/
 
