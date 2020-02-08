@@ -1,5 +1,19 @@
-////// Explore Earth Engine Data Catalog
-////// Use search bar above to find places, rasters, or tables
-////// Search for your favorite place
-////// Click on the result and observe what happens
-////// 
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var forestPALSAR = ee.ImageCollection("JAXA/ALOS/PALSAR/YEARLY/FNF");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+/// 2020 Varsha Vijay GEEforSynthesis 
+/// https://sites.google.com/view/geeforsynthesis  
+////////// Explore Earth Engine Data Catalog////////////////
+/// Use search bar above to find places, rasters, or tables
+/// Search for your favorite place
+/// Click on the result and observe what happens
+/// Search for forest in the search bar
+/// Click on Global PALSAR-2/PALSAR Forest/Non-Forest Map
+/// or Hansen Global Forest Change v1.6 (2000-2018)
+/// Review information available
+/// Click import
+/// Note data type on import
+/// Name data
+print(ImageCollectionNAME)
+///
+
