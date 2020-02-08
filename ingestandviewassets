@@ -5,24 +5,23 @@
 */
 
 /* The Earth Engine data catalog contains many common datasets 
-but many synthesis projects use data obtained and stored locally
+but many research projects use data obtained and stored locally
 
 In this excercise we will use data from 
 Vijay, Varsha, et al. 
 "Deforestation risks posed by oil palm expansion in the Peruvian Amazon." 
 Environmental Research Letters 13.11 (2018): 114010.
 
-Data for this paper are found on Dryad
-https://datadryad.org/stash/dataset/doi:10.5061/dryad.kk7hq10
-
 We will use one of the datasets describing deforestation 
 inside current oil palm plantations downloaded directly 
 from the Oil_palm_Peru folder in the Resources section 
 of the google site for this workshop
 
-Once you download this dataset unzip and find 3 datasets
+Once you download this dataset, unzip and find 4 files:
+deforestoilpalmWGS.tif, deforestoilpalm.zip
+deforestoilpalmWGS.zip, README
 
 */
 
-
+var crop1k = ee.Image('users/varshavijay101/AgricultureBiodiversity/crop1k')
 
