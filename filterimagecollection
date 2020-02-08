@@ -62,7 +62,7 @@ First filter to summer and winter images
 */
 
 var DCsummer= landsatsfDC
-.Filter.calendarRange(5,8,'month')
+.filter(ee.Filter.calendarRange(5,8,'month'))
 
 /*
 What kind of object is this?
@@ -70,6 +70,13 @@ What kind of object is this?
 
 /*
 To create the mean image for summer and winter we reduce
+the ImageCollection to a single image using the mean function
+and print the result
+*/
+
+var DCsummermn= DCsummer.reduce(mean)
+print(DCsummermn)
+
 
 
 
