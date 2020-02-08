@@ -39,10 +39,18 @@ Look at the right menu to the side of the editor and click
 on the Tasks tab
 Monitor upload
 When complete find asset in GEEforSynthesis folder
-and add image to this script
+and add image to this script using imageid
 */
 
 var name = ee.Image('assetlocation')
 
-//Print image
-print(oilpalmperu.projection().nominalScale())
+/* button should appear over newly defined image offering the 
+option to ingest.
+Print image below using print function from previous script
+and view in Console.
+*/
+
+/*
+Using print we can learn about the image but it is often helpful
+to 
+
