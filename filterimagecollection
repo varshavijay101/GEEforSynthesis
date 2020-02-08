@@ -1,17 +1,12 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var landsatsf = ee.ImageCollection("LANDSAT/LC08/C01/T2_SR"),
-    dc = 
-    /* color: #ffc82d */
-    /* shown: false */
-    ee.Geometry.Polygon(
-        [[[-67.09527180291968, 44.189306574727716],
-          [-67.27105305291968, 47.96713468193948],
-          [-74.30230305291968, 48.08469612715864],
-          [-82.56402180291968, 37.69165858235118],
-          [-87.31011555291968, 30.722019140198714],
-          [-81.15777180291968, 24.336101614861718],
-          [-77.11480305291968, 27.185280188893298],
-          [-80.10308430291968, 31.17428453380225]]]);
+var landsatsf = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR"),
+    dc = /* color: #bf04c2 */ee.Geometry.Polygon(
+        [[[-76.32045512263232, 39.41856363710903],
+          [-76.90822367731982, 39.61772842029389],
+          [-77.68825297419482, 39.21031614781048],
+          [-77.51247172419482, 38.6333720136652],
+          [-76.78737406794482, 38.56038750928955],
+          [-76.36989359919482, 38.99718025361767]]]);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 ////////// Filter Image Collection ////////////////
  /*
@@ -36,12 +31,11 @@ var landsat1417=landsatsf
 print(landsat1417.limit(1),"landsat1417")
 
 /*
-We are interested in images collected on the 
-United States East Coast (Approx ME to FL)
+We are interested in images collected in the Washington DC area
 Use your Map below to navigate to this area
 and click the draw a shape button 
 on the top left of the map.
-Draw the East Coast.
+Draw a shape which incorporates DC, Baltimore and Annapolis.
 
 You created a geometry object!
 Scroll up to imports to see this in your code editor.
@@ -59,13 +53,13 @@ var landsatsfDC = landsat1417
 print(landsatsfDC,"dc")
 
 /*
-We want to calculate the mean image for spring-fall (March-Oct) 
+We want to calculate the mean image for summer (May-Aug) 
 for the sample years 14-17
 First filter to summer images
 */
 
 var DCsummer= landsatsfDC
-.filter(ee.Filter.calendarRange(3,10,'month'))
+.filter(ee.Filter.calendarRange(5,8,'month'))
 
 print(DCsummer,"summer")
 
@@ -97,13 +91,13 @@ is using the filterMetadata function.
 Printing the ImageCollection showed that each image has a
 property "CLOUD_COVER" which is an estimate of the percent cloud
 cover for an image.
-Filter images with > 50% CLOUD_COVER
+Filter images with < 50% CLOUD_COVER
 Fill in the function with the correct operator
 *hint- use the Docs tab to find syntax for defined functions*
 */
 
 var DCsummercloudfilt = DCsummer
-.filterMetadata('CLOUD_COVER','greater_than', 50)
+.filterMetadata('CLOUD_COVER','less_than', 30)
 
 print(DCsummercloudfilt)
 
