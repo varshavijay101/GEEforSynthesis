@@ -2,14 +2,40 @@
 var humanmod = ee.ImageCollection("CSP/HM/GlobalHumanModification"),
     Ecoregions2017 = ee.FeatureCollection("RESOLVE/ECOREGIONS/2017");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-////////// Filter Image Collection ////////////////
+////////// Case Study: Human modification and habitat type for//////////// 
+//////////////////seed dispersal network samples ////////////////
  /*
  2020 Varsha Vijay GEEforSynthesis 
  https://sites.google.com/view/geeforsynthesis
+ 
 */
-//Human modification in seed dispersal networks
-//Varsha for Evan 5/10/19
 
+//This case study comes from a collaboration with Dr. Evan Fricke.
+//Please read below for background
+
+/*
+Dr. Evan Fricke, an ecologist and fellow postdoctoral researcher at SESYNC, 
+is trying to understand mutualistic plant-animal interactions 
+through the study of seed dispersal networks. 
+Using a new dataset composed of network observations around the world,
+he wants to answer questions both about the broad ecological patterns of these networks
+and the role that humans have in altering native interactions through
+the introduction of native species.
+
+Cool stuff!
+*/
+
+/*
+To better characterize anthropogenic impacts in locations with
+network observations, he wanted to use the Global Human Modification dataset.
+Please search the bar above to learn more about this dataset.
+
+I developed this code in GEE, because it takes advantage of some of the unique resources
+of this environment.
+Because the dataset is in the GEE data catalog, it does not need to be downloaded locally.
+GEE also allows us to rapidly calculate statistics on image regions even for large
+and globally distributed datasets
+*/
 
 //human mod imagecollection to image
 print(humanmod.first().propertyNames())
