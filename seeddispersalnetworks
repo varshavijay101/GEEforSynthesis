@@ -30,11 +30,11 @@ To better characterize anthropogenic impacts in locations with
 network observations, he wanted to use the Global Human Modification dataset.
 Please search the bar above to learn more about this dataset.
 
-I developed this code in GEE, because it takes advantage of some of the unique resources
-of this environment.
-Because the dataset is in the GEE data catalog, it does not need to be downloaded locally.
-GEE also allows us to rapidly calculate statistics on image regions even for large
-and globally distributed datasets
+I developed this code in GEE, because it takes advantage of 
+some of the unique resources of this environment.
+* Dataset is in the GEE data catalog
+* GEE allows for to rapid calculation of 
+statistics on image regions
 */
 
 //human mod imagecollection to image
