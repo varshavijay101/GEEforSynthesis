@@ -1,0 +1,20 @@
+//////////Ingest Assets from local storage////////////////
+ /*
+ 2020 Varsha Vijay GEEforSynthesis 
+ https://sites.google.com/view/geeforsynthesis
+*/
+
+/* The Earth Engine data catalog contains
+many common datasets but what if you have 
+local data you want to use?
+
+In this excercise we will use data from 
+Vijay, Varsha, et al. 
+"Deforestation risks posed by oil palm expansion in the Peruvian Amazon." 
+Environmental Research Letters 13.11 (2018): 114010.
+
+Data for this paper are found on Dryad
+https://datadryad.org/stash/dataset/doi:10.5061/dryad.kk7hq10
+
+But for the sake of time one of the datasets from this data repository
+can be downloaded from the google site for this workshop
