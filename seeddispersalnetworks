@@ -2,7 +2,11 @@
 var humanmod = ee.ImageCollection("CSP/HM/GlobalHumanModification"),
     Ecoregions2017 = ee.FeatureCollection("RESOLVE/ECOREGIONS/2017");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-
+////////// Filter Image Collection ////////////////
+ /*
+ 2020 Varsha Vijay GEEforSynthesis 
+ https://sites.google.com/view/geeforsynthesis
+*/
 //Human modification in seed dispersal networks
 //Varsha for Evan 5/10/19
 
