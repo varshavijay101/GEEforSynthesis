@@ -60,25 +60,27 @@ This is a good place to start exploring the Docs tab to the left
 this gives you function syntax
 */
 
-//Map.addLayer(name)
+Map.addLayer(name)
 
 /*
-YAY! Our first visualization.
-But this visualization is not ideal because we dont see the data
+YAY! Our first visualization. Toggle on and off using the Layers menu
+in the Map.
+This visualization is not ideal because we dont see the data
 (Assuming we dont know that the data are in the Peruvian Amazon)
 Center map on the image before visualizing
 */
 
-//Map.centerObject(name,zoom)//Set zoom arguement 1:24
-//Map.addLayer(name)
-Map.addLayer(oilpalmperu)
+Map.centerObject(name,zoom)//Set zoom arguement 1:24
+Map.addLayer(name)
+
 /*
 This is better but the visualization looks to be a single color
 from the README file you know that the values range from 0 to 15
-for 2000-2015. Set visualization params to reflect that
+for 2000-2015. Set visualization params to reflect that.
+Add name to layer.
 */
-//Map.addLayer(name,{min:min ,max:max },"name")
-Map.addLayer(oilpalmperu,{min:0 ,max:15 },"name")
+Map.addLayer(name,{min:min ,max:max },"name")
+
 
 /*
 Even better. Now add some cool colors to better differentiate years
@@ -86,3 +88,8 @@ deforested. Add palette arg. to viz params.
 */
 Map.addLayer(oilpalmperu,{min:0 ,max:15,palette: ["c1","c2","c3"] },"name")
 
+/*
+Finally for even more information about these data you can switch
+to the Inspector tab on the right and click on the data 
+to examine pixel values
+/*
