@@ -35,8 +35,8 @@ find deforestoilpalm.tif in local storage and save to new folder
 Look at the right menu to the side of the editor and click 
 on the Tasks tab
 Monitor upload
-When complete find asset in GEEforSynthesis flder
+When complete find asset in GEEforSynthesis folder
+*/
 
-
-var crop1k = ee.Image('users/varshavijay101/AgricultureBiodiversity/crop1k')
+var name = ee.Image('assetlocation')
 
