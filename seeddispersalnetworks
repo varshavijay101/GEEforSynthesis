@@ -86,7 +86,16 @@ Try this for the gHM data by modifying the code below
 print(name.projection().nominalScale())
 
 /*
-This nominal scale is in broad agreement with the 
+This nominal scale is in agreement with the metadata
+spatial resolution is nominal 1km
+*/
+
+/*
+Now import the network sample locations from the Resources
+page of the workshop website. The zipped file is called
+GEEforSynthesisNETWORKS
+*/
+
 
 //Import fusion table input for network sample locations and converts to feature collection
 var networks = ee.FeatureCollection('ft:1T5uT7HqOoi8NMiNAKz-AHGytpuinpjSS4HItZ_ru');
