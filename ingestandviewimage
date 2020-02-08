@@ -92,4 +92,4 @@ Map.addLayer(oilpalmperu,{min:0 ,max:15,palette: ["c1","c2","c3"] },"name")
 Finally for even more information about these data you can switch
 to the Inspector tab on the right and click on the data 
 to examine pixel values
-/*
+*/
