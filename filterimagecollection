@@ -27,6 +27,13 @@ and print to console *hint think about number of objects in collection*
 print(landsatsf.limit(1))
 
 /*
+Filter for images collected from 2014-2017
+*/
+
+var landsat1417=landsatsf
+.filterDate('2014-01-01', '2017-12-31')
+
+/*
 We are interested in images collected in the DC area
 Use your Map below to navigate to DC and use the
 draw a rectangle button on the top left of the map to draw
@@ -35,5 +42,37 @@ around the greater DC area.
 You created a geometry object!
 Scroll up to imports to see this in your code editor.
 Name object.
+Print to see data type
 */
+
+/*
+Use to filter ImageCollection
+*/
+
+var landsatsfDC = landsatsf
+.filterDate('2014-01-01', '2017-12-31')
+.filterBounds(dc)
+
+print(landsatsfDC)
+
+/*
+We want to compare the mean image for DC summer (May-Aug) to
+DC winter(Dec-Feb) for the sample years 14-17
+First filter to summer and winter images
+*/
+
+var DCsummer= landsatsfDC
+.Filter.calendarRange(5,8,'month')
+
+/*
+What kind of object is this?
+*/
+
+/*
+To create the mean image for summer and winter we reduce
+
+
+
+
+
 
