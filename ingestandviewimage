@@ -60,7 +60,7 @@ This is a good place to start exploring the Docs tab to the left
 this gives you function syntax
 */
 
-Map.addLayer(name)
+//Map.addLayer(name)
 
 /*
 YAY! Our first visualization.
@@ -69,7 +69,9 @@ But this visualization is not ideal because we dont see the data
 Center map on the image before visualizing
 */
 
-Map.centerObject(name,zoom)//Set zoom arguement 1:24
-Map.addLayer(name)
+//Map.centerObject(name,zoom)//Set zoom arguement 1:24
+//Map.addLayer(name)
 
+
+print(oilpalmperu)
 
