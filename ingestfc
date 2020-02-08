@@ -55,6 +55,10 @@ Print to console
 print(oilpalmperu)
 
 /*
+Verify projection information
+*/
+
+/*
 These data are derived from an image so are not stored
 in an ideal format.  
 
