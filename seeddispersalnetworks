@@ -55,17 +55,38 @@ var name= ee.Image('imageid')
 or by selecting the first image in this image collection
 or be filtering the image collection as shown in the previous collection.
 Select the image using the first() function
+*Note that we explicitly cast to an Image object type
+when using these approaches*
 */
 
-//print(humanmod.first().propertyNames())
-//var ghm=ee.Image(humanmod.first())
-//print(ghm)
+var name=ee.Image(name.first())
 
-//Vizualize human mod index
-var vizparams= {min:0,max:1,palette: ['0000FF','FFFF00','FF0000']}
-Map.addLayer(ghm,vizparams,'ghm')
-//print('ghm',humanmod)
-//print(ghm.projection().nominalScale())
+/*
+Comment out one of these approaches to get your final image and print
+to verify object type and properties.
+*/
+
+/*
+Great job!
+Now visualize the gHM to understand the data better
+using the visualization parameters provided below
+Modify the visualiztion using the palette argument with 
+either color names or hex colors
+Use the appropriate Map. function
+*/
+
+var vizparams= {min:0,max:1,palette: ['0000FF','FFFF00','FF0000']}//blue,yellow,red
+
+/*
+Because we are doing calculations for sample regions
+we need to understand the spatial resolution of these data
+Try this for the gHM data by modifying the code below
+*/
+
+print(name.projection().nominalScale())
+
+/*
+This nominal scale is in broad agreement with the 
 
 //Import fusion table input for network sample locations and converts to feature collection
 var networks = ee.FeatureCollection('ft:1T5uT7HqOoi8NMiNAKz-AHGytpuinpjSS4HItZ_ru');
