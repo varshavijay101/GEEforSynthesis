@@ -72,3 +72,4 @@ Center map on the image before visualizing
 Map.centerObject(name,zoom)//Set zoom arguement 1:24
 Map.addLayer(name)
 
+
