@@ -1,6 +1,3 @@
-/**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var oilpalmperu = ee.FeatureCollection("users/varshavijay101/GEEforSynthesis/deforestoilpalmWGS");
-/***** End of imports. If edited, may not auto-convert in the playground. *****/
 //////////Ingest Feature Collection From Local Storage////////////////
  /*
  2020 Varsha Vijay GEEforSynthesis 
