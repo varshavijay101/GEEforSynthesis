@@ -9,7 +9,7 @@ var landsatsf = ee.ImageCollection("LANDSAT/LC08/C01/T2_SR");
 
 /*
 Load Landsat 8 Surface Reflectance Tier 2 Image Collection
-and print to console
+and print to console *hint think about number of objects in collection*
 */
-print(landsatsf)
+print(landsatsf.limit(1))
 
