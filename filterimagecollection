@@ -89,8 +89,14 @@ summer and winter image collections before computing a mean image
 */
 
 /*
-We do this using the filterMetadata function.
-Printing the image
+A simple way (read- not necessarily the best) way to do this
+is using the filterMetadata function.
+Printing the ImageCollection showed that each image has a
+property "CLOUD_COVER" which is an estimate of the percent cloud
+cover for an image.
+Filter images with > 50% CLOUD_COVER
+*/
+
 var DCsummercloudfilt = DCsummer.
 
 
