@@ -1,3 +1,6 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var oilpalmperu = ee.Image("users/varshavijay101/GEEforSynthesis/deforestoilpalmWGSREV");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 //////////Ingest Assets from local storage////////////////
  /*
  2020 Varsha Vijay GEEforSynthesis 
@@ -41,7 +44,8 @@ and add image to this script using imageid
 
 var name = ee.Image('assetlocation')
 
-/* button should appear over newly defined image offering the 
+/* 
+A button should appear over newly defined image offering the 
 option to ingest.
 Print image below using print function from previous script
 and view in Console.
@@ -60,5 +64,11 @@ Map.addLayer(name)
 
 /*
 YAY! Our first visualization.
-But this visualization is not ideal because even
+But this visualization is not ideal because we dont see the data
+(Assuming we dont know that the data are in the Peruvian Amazon)
+Center map on the image before visualizing
 */
+
+Map.centerObject(name,zoom)//Set zoom arguement 1:24
+Map.addLayer(name)
+
