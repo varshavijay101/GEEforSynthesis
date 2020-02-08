@@ -124,7 +124,7 @@ Copy coordinates into Map
 and display the image.
 */
 
-Map.setCenter(Longitude, Latitude, zoom level);
+Map.setCenter(Longitude, Latitude, zoomlevel);
 Map.addLayer(name, vizParams, 'name');
 
 
