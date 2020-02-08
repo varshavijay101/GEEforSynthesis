@@ -77,7 +77,7 @@ from the README file you know that the values range from 0 to 15
 for 2000-2015. Set visualization params to reflect that.
 Add name to layer.
 */
-Map.addLayer(name,{min:min ,max:max },"name")
+Map.addLayer(name,{min:min ,max:max},"name")
 
 
 /*
