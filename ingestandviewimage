@@ -63,8 +63,8 @@ this gives you function syntax
 Map.addLayer(name)
 
 /*
-YAY! Our first visualization. Toggle on and off using the Layers menu
-in the Map.
+YAY! Our first visualization. 
+Toggle on and off using the Layers menu in the Map.
 This visualization is not ideal because we dont see the data
 (Assuming we dont know that the data are in the Peruvian Amazon)
 Center map on the image before visualizing
@@ -86,6 +86,7 @@ Map.addLayer(name,{min:min ,max:max },"name")
 Even better. Now add some cool colors to better differentiate years
 deforested. Add palette arg. to viz params.
 */
+
 Map.addLayer(oilpalmperu,{min:0 ,max:15,palette: ["c1","c2","c3"] },"name")
 
 /*
