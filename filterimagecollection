@@ -1,6 +1,9 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var landsatsf = ee.ImageCollection("LANDSAT/LC08/C01/T2_SR"),
-    dc = /* color: #ffc82d */ee.Geometry.Polygon(
+    dc = 
+    /* color: #ffc82d */
+    /* shown: false */
+    ee.Geometry.Polygon(
         [[[-67.09527180291968, 44.189306574727716],
           [-67.27105305291968, 47.96713468193948],
           [-74.30230305291968, 48.08469612715864],
@@ -56,13 +59,13 @@ var landsatsfDC = landsat1417
 print(landsatsfDC,"dc")
 
 /*
-We want to calculate the mean image for summer (May-Aug) 
+We want to calculate the mean image for spring-fall (March-Oct) 
 for the sample years 14-17
 First filter to summer images
 */
 
 var DCsummer= landsatsfDC
-.filter(ee.Filter.calendarRange(5,8,'month'))
+.filter(ee.Filter.calendarRange(3,10,'month'))
 
 print(DCsummer,"summer")
 
@@ -111,6 +114,26 @@ Calculate mean image from cloud filtered collection
 var DCsummerfilt=DCsummercloudfilt.mean()
 print(DCsummerfilt,"filt")
 
+/*
+Map false color image using bands 3,4,5.
+This is a technique used to emphasize observe patterns 
+not as visible to the human eye. We use a visualization that emphasizes
+near-infared to explore vegetation patterns 
+(See http://gsp.humboldt.edu/OLM/Courses/GSP_216_Online/lesson3-1/composites.html
+for a guide to Landsat 8 bands and image composites)
+*/
+
+// Below I give you the visualization parameters for the Map.addLayer function
+var vizParams = {
+  bands: ['B5', 'B4', 'B3'],
+  min: 0,
+  max: 0.5,
+  gamma: [0.95, 1.1, 1]
+};
+
+// Center the map and display the image.
+Map.setCenter(-76.499, 38.957, 10); // Annapolis, Maryland (home of SESYNC!)
+Map.addLayer(DCsummerfilt, vizParams, 'summer east coast');
 
 
 
