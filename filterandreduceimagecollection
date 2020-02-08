@@ -49,10 +49,8 @@ for the sample years 14-17
 First filter to summer images
 */
 
-var DCsummer= landsatsfDC
+var name= name
 .filter(ee.Filter.calendarRange(start,end,'month'))
-
-print(DCsummer,"summer")
 
 /*
 What kind of object is this?
@@ -64,8 +62,7 @@ the ImageCollection to a single image using the mean function
 and print the result
 */
 
-var DCsummermn= DCsummer.mean()
-print(DCsummermn)
+var name= name.mean()
 
 /*
 Great job!
