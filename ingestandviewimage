@@ -71,7 +71,18 @@ Center map on the image before visualizing
 
 //Map.centerObject(name,zoom)//Set zoom arguement 1:24
 //Map.addLayer(name)
+Map.addLayer(oilpalmperu)
+/*
+This is better but the visualization looks to be a single color
+from the README file you know that the values range from 0 to 15
+for 2000-2015. Set visualization params to reflect that
+*/
+//Map.addLayer(name,{min:min ,max:max },"name")
+Map.addLayer(oilpalmperu,{min:0 ,max:15 },"name")
 
-
-print(oilpalmperu)
+/*
+Even better. Now add some cool colors to better differentiate years
+deforested. Add palette arg. to viz params.
+*/
+Map.addLayer(oilpalmperu,{min:0 ,max:15,palette: ["c1","c2","c3"] },"name")
 
