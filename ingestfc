@@ -1,0 +1,34 @@
+//////////Ingest Feature Collection From Local Storage////////////////
+ /*
+ 2020 Varsha Vijay GEEforSynthesis 
+ https://sites.google.com/view/geeforsynthesis
+*/
+
+/* 
+The Earth Engine data catalog contains many common datasets 
+but many research projects use data obtained and stored locally
+
+In this excercise we will use data from 
+Vijay, Varsha, et al. 
+"Deforestation risks posed by oil palm expansion in the Peruvian Amazon." 
+Environmental Research Letters 13.11 (2018): 114010.
+
+We will use one of the datasets describing deforestation 
+inside current oil palm plantations downloaded directly 
+from the Oil_palm_Peru folder in the Resources section 
+of the google site for this workshop
+
+Once you download this dataset, unzip and find 4 files:
+deforestoilpalm.tif, deforestoilpalm.zip
+deforestoilpalmWGS.zip, README
+*/
+
+/*
+Some of the datasets needed in the GEE environment are
+tabular data or shapefiles stored locally
+
+Using the oil palm deforestation data we practice 
+ingesting feature assets
+
+
+
