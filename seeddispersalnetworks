@@ -33,8 +33,11 @@ Please search the bar above to learn more about this dataset.
 I developed this code in GEE, because it takes advantage of 
 some of the unique resources of this environment.
 * Dataset is in the GEE data catalog
-* GEE allows for to rapid calculation of 
-statistics on image regions
+* GEE allows for to rapid calculation of statistics on image regions
+*/
+
+/*
+Add Global Human Modification (gHM) dataset to code editor
 */
 
 //human mod imagecollection to image
