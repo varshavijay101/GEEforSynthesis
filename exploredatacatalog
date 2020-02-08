@@ -39,4 +39,4 @@ If Error, try to print a subset using function
 limit()
 Review output in console
 */
-print()//*hint* syntax uses a . after the object name
+print()//*hint* syntax uses a . after the object name to run limit() function
