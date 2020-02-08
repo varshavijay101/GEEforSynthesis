@@ -13,7 +13,7 @@ var forestPALSAR = ee.ImageCollection("JAXA/ALOS/PALSAR/YEARLY/FNF");
 /// Review information available
 /// Click import
 /// Note data type on import
-/// Name data
-print(ImageCollectionNAME)
+/// Name ImageCollection
+print(ImageCollectionNAME)//Change to 
 ///
 
