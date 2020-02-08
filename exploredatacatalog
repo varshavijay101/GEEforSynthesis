@@ -1,19 +1,36 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var forestPALSAR = ee.ImageCollection("JAXA/ALOS/PALSAR/YEARLY/FNF");
+var census = ee.FeatureCollection("TIGER/2010/ZCTA5");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 /// 2020 Varsha Vijay GEEforSynthesis 
 /// https://sites.google.com/view/geeforsynthesis  
 ////////// Explore Earth Engine Data Catalog////////////////
 /// Use search bar above to find places, rasters, or tables
+
+///////// Find Places!
 /// Search for your favorite place
 /// Click on the result and observe what happens
-/// Search for forest in the search bar
-/// Click on Global PALSAR-2/PALSAR Forest/Non-Forest Map
-/// or Hansen Global Forest Change v1.6 (2000-2018)
+
+///////// Find Rasters!
+/// Search for raster data in the search bar
+/// Search: forest or carbon
+/// Click on data
 /// Review information available
 /// Click import
 /// Note data type on import
-/// Name ImageCollection
-print(ImageCollectionNAME)//Change to 
-///
+/// Is it an Image or ImageCollection?
+/// Name import within script
+print() //add name as argument
+/// Review output in Console
 
+////////// Find Tables
+/// Search for tabular data in the search bar
+/// Search: country or census
+/// Click on data
+/// Review information available
+/// Click import
+/// Name import within script
+print() //add name as argument
+/// What was the result?
+/// If Error, try to print a subset
+//print(.limit(n))
+/// Review output on Console
