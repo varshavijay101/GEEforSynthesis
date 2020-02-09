@@ -61,7 +61,7 @@ Select the image using the first() function
 when using these approaches*
 */
 
-//var name=ee.Image(name.first())
+var ghm=ee.Image(humanmod.first())
 
 /*
 Comment out one of these approaches to get your final image and print
@@ -101,7 +101,7 @@ Cast object to FeatureCollection.
 Add to Map.
 */
 
-var name= ee.FeatureCollection(tablename)
+var networks= ee.FeatureCollection(networks)
 
 /*
 If you do not see your point data then go back and Import, 
@@ -118,21 +118,44 @@ See how many network sample locations are in the dataset
 using the size() function and print to view data properties
 */
 
-print(name.size())
+//print(name.size())
 
 /*
 Now that both the gHM data and network samples are loaded in the 
 code editor calculate the gHM index for all sites.
 
-To do this we use the reduceRegions function.  This is a similar
+To do this we use the reduceRegion function.  This is a similar
 concept to Zonal Statistics in GIS softwares like ArcGIS.
+What this means is that we are finding the mean image value
+accross all regions. This returns a single value.
+Later we will determine the value in each region
+
+Note the syntax...where does the Image go and where do the regions go?
+Also note that I am explicitly setting the calculation using the
+scale and projection of the input image.
+For image calculations it can be good practice to set these explictly.
 */
 
-var networkmod= ghm.reduceRegions({
+var namegHM= gHM.reduceRegions({
   collection: networks,
-  reducer: ee.Reducer.mean(),//.unweighted(),
-  scale:ghm.projection().nominalScale()
+  reducer: ee.Reducer.mean(),
+  scale:gHM.projection().nominalScale()
   })
+
+/*
+The default calculation weights the calculation by the 
+proportion of the pixel included in the image region.
+See what this means by rerunning the same calculation with
+the unweighted() function which assigns equal weight to all pixels
+in the region
+*/
+var namegHMuw= gHM.reduceRegions({
+  collection: name,
+  reducer: ee.Reducer.mean().unweighted(),
+  scale:gHM.projection().nominalScale()
+  })
+
+//.unweighted(),
 //Check image reduction
 //print(ghm.bandNames())
 //print(networkmod.limit(2))//.select(ghm.bandNames()))
