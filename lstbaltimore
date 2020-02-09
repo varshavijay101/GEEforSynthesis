@@ -144,12 +144,14 @@ var surfTemp_img = geet.surface_temperature_oli(name);//print this
 var LSTimg = surfTemp_img.select(bandname);
 */
 
+/*
+Visualize the output
+Use the 
+*/
 
-
+Map.addLayer(name, {palette: ['blue', 'yellow', 'red']});
 
 /*
+Add a stretch to the 
 
-Visualize the output
-print(im);
-Map.addLayer(im, { palette: ['blue', 'green', 'red']});
 
