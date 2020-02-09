@@ -107,10 +107,19 @@ reflectance values
 
 /*
 Using the Landsat 8 documentation we see that bands 1-4 and 8
-sense wavelengths in the visible spectrum (visible to the human eye).
-For this study we want to understand heat so we use band 10 which senses
-thermal infared wavelenths.
+sense wavelengths in the visible spectrum (visible to the human eye),
+band 5 senses near infared (useful for sensing vegetation), 
+bands 5 and 6 short wave infared (useful for sensing wet areas),
+and bands 10 and 11 for thermal infared wavelegths.
 
+For this study we want to understand heat so we use the thermal infared
+in addition to the other bands to calculate land surface temperature
+
+*/
+
+
+/*
+To process th
 Use the geet.toa_radiance function to process this band to top of atmosphere
 radiance values from raw imagery.
 
