@@ -122,25 +122,47 @@ using the size() function and print to view data properties
 
 /*
 Now that both the gHM data and network samples are loaded in the 
-code editor calculate the gHM index for all sites.
+code editor we calculate the gHM index for all sites.
 
-To do this we use the reduceRegion function.  This is a similar
-concept to Zonal Statistics in GIS softwares like ArcGIS.
-What this means is that we are finding the mean image value
-accross all regions. This returns a single value.
-Later we will determine the value in each region
+First we define a function to buffer the point sample site data 
+so we can take the mean of several pixels instead of a single estimate
+*/
+
+var applybuff = function(feature) {
+  return feature.buffer(5000);  //Define buffer in meters
+};
+
+/*
+Now we need to apply a new concept, mapping across feature collections.
+This applies the function to each feature in the feature collection
+and takes the place of loops which are a no no in this environment.
+In this simple case, the syntax is .map(functionname)
+*/
+
+var namebuff = networks.map(applybuff);
+//Map.addLayer(name,{color: '00FF00'},'name')
+
+/*
+What is the mean gHM accross the buffered sample areas?
+To answer this we use the reduceRegion function.
+Reminder that this means that we are finding 
+the mean image value across ALL regions. 
+Later we will determine the mean value in EACH region.
 
 Note the syntax...where does the Image go and where do the regions go?
 Also note that I am explicitly setting the calculation using the
 scale and projection of the input image.
 For image calculations it can be good practice to set these explictly.
+
+This returns a new type of object. print to see what this is.
 */
 
-var namegHM= gHM.reduceRegions({
-  collection: networks,
+var nameghm= ghm.reduceRegion({
+  geometry: namebuff,
   reducer: ee.Reducer.mean(),
-  scale:gHM.projection().nominalScale()
+  scale:ghm.projection().nominalScale()
   })
+print(nameghm)
 
 /*
 The default calculation weights the calculation by the 
@@ -149,11 +171,43 @@ See what this means by rerunning the same calculation with
 the unweighted() function which assigns equal weight to all pixels
 in the region
 */
-var namegHMuw= gHM.reduceRegions({
-  collection: name,
+var nameghmuw= ghm.reduceRegion({
+  geometry: namebuff,
   reducer: ee.Reducer.mean().unweighted(),
-  scale:gHM.projection().nominalScale()
+  scale:ghm.projection().nominalScale()
   })
+
+print(nameghmuw)
+
+/*
+In this case these values should be very close but this
+is an important consideration for these types of analyses
+on a more advanced level the splitWeights() function can be
+used to assign explicit weights
+*/
+
+/*
+While we answered one question, the more interesting questions
+are about the relationship between individual sample estimates
+of anthropogenic influence and gHM.
+
+We run the reduceRegions function to answer this question.
+This gives us the mean value for EACH sample location.
+*/
+
+var networkmodBUFF= ghm.reduceRegions({
+  collection: networks,
+  reducer: ee.Reducer.mean(),
+  scale:ghm.projection().nominalScale()
+  })
+
+/*
+YAY! Having determined mean gHM for each sample lets explore what
+that means
+*/
+
+
+
 
 //.unweighted(),
 //Check image reduction
@@ -170,14 +224,7 @@ Export.table.toDrive({
 //Filter Islands
 
 
-//Buffer sample network locations
 
-var applybuff = function(feature) {
-  return feature.buffer(5000);  
-};
-
-var networkbuff = networks.map(applybuff);
-Map.addLayer(networkbuff,{color: '00FF00'},'networkbuff')
 //Reduce regions
 var networkmodBUFF= ghm.reduceRegions({
   collection: networks,
