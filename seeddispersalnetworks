@@ -92,9 +92,10 @@ spatial resolution is nominal 1km
 
 /*
 Now import the network sample locations from the Resources
-page of the workshop website. The zipped file is called
+page of the workshop website. The csv file is called
 GEEforSynthesisNETWORKS
 */
+
 
 
 //Import fusion table input for network sample locations and converts to feature collection
