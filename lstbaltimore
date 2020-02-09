@@ -68,7 +68,9 @@ Name geometry object.
 
 /*
 Now begin processing imagery from the raw Landsat image collection
-by first filtering to the least cloudy image for July 2018.
+by first filtering to the least cloudy image for July 2018.  This date
+corresponds to the collection date for other data used in Tijana's
+study.
 See below for a start on this.
 */
 
@@ -85,7 +87,19 @@ use the GEET library to process the raw image to obtain surface
 reflectance values
 */
 
+/*
+Using the Landsat 8 documentation we see that bands 1-4 and 8
+sense wavelengths in the visible spectrum (visible to the human eye).
+For this study we want to understand heat so we use band 10 which senses
+thermal infared wavelenths.
+
+Use the geet.toa_radiance function to process this band to top of atmosphere
+radiance values from raw imagery.
+
+To understand more about 
+*/
 var new_toa_radiance = geet.toa_radiance(image2, 10);
+
 var brightness_temp_img = geet.brightness_temp_l8c(new_toa_radiance, true);
 var l8_ndvi = geet.ndvi_l8(brightness_temp_img); 
 var img_pv = geet.prop_veg(l8_ndvi);
