@@ -119,26 +119,34 @@ in addition to the other bands to calculate land surface temperature
 
 
 /*
-We use the following set of functions to calculate land surface temperature
+We use the following set of functions to calculate 
+land surface temperature (LST)
 values as implemented in the GEET toolbox.
 
 It should be noted that there are multiple methods used to calculate land
 surface temperature for Landsat 8. This approach implements a method found
 in http://www.jestr.org/downloads/Volume8Issue3/fulltext83122015.pdf
 
-Here is an excellent GEE script by George Azzari for another method
+Here is an excellent GEE script by for another method
 https://code.earthengine.google.com/d938f04d6a06c0049abf39d358c0c969
 
-*/
-var new_toa_radiance = geet.toa_radiance(image2, 10);
+*hint-each function uses the output of the previous*
 
-var brightness_temp_img = geet.brightness_temp_l8c(new_toa_radiance, true);
-var l8_ndvi = geet.ndvi_l8(brightness_temp_img); 
-var img_pv = geet.prop_veg(l8_ndvi);
-var lse = geet.surface_emissivity(img_pv);
-var surfTemp_img = geet.surface_temperature_oli(lse);
-var im = surfTemp_img.select("LST");
+Feel free to print the outputs to see what is changing
+*/
+var new_toa_radiance = geet.toa_radiance(name, 10);
+var brightness_temp_img = geet.brightness_temp_l8c(name, true);
+var l8_ndvi = geet.ndvi_l8(name); 
+var img_pv = geet.prop_veg(name);
+var lse = geet.surface_emissivity(name);
+var surfTemp_img = geet.surface_temperature_oli(name);//print this
+//Using the printed surface temp image above find '
+//the land surface temp band
+var LSTimg = surfTemp_img.select(bandname);
+
+/*
+
+Visualize the output
 print(im);
 Map.addLayer(im, {min: 7000, max: 8000, palette: ['blue', 'green', 'red']});
 
-//
