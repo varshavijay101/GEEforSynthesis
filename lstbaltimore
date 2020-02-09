@@ -132,6 +132,7 @@ https://code.earthengine.google.com/d938f04d6a06c0049abf39d358c0c969
 *hint-each function uses the output of the previous*
 
 Feel free to print the outputs to see what is changing
+*/
 
 var new_toa_radiance = geet.toa_radiance(name, 10);
 var brightness_temp_img = geet.brightness_temp_l8c(name, true);
@@ -142,7 +143,7 @@ var surfTemp_img = geet.surface_temperature_oli(name);//print this
 //Using the printed surface temp image above find
 //the land surface temp band
 var LSTimg = surfTemp_img.select(bandname);
-*/
+
 
 /*
 Visualize the output
@@ -162,6 +163,13 @@ Normalized Difference Vegetation Index(NDVI)
 read more in the link below
 https://gisgeography.com/ndvi-normalized-difference-vegetation-index/
 */
+
+/*
+If you scroll up in this script.  You will see that we already calculated
+this.  Use the select function to get the NDVI band from the l8_ndvi image.
+*/
+
+
 
 
 
