@@ -250,28 +250,8 @@ Use the filterMetadata function to identify oceanic islands and continental isla
 Review the original dataset to see how this information is stored
 */
 
-//Filter Islands
 
 
-
-//Reduce regions
-var networkmodBUFF= ghm.reduceRegions({
-  collection: networks,
-  reducer: ee.Reducer.mean(),//['meangHM'],//.unweighted(),
-  scale:ghm.projection().nominalScale()
-  })
-//Check
-//print(networkmodBUFF.first())
-
-//Export table to V's drive
-Export.table.toDrive({
-  collection: networkmodBUFF,
-  description: 'networkmodbuff',
-  folder: 'Evan',
-  fileFormat:'CSV'
-});
-
-//
 
 ///////////////Add Biome/Ecoregion for each sample location
 ///Load Feature Collection
@@ -302,36 +282,3 @@ Export.table.toDrive({
   folder: 'Evan',
   fileFormat:'CSV'
 });
-
-
-// Define a spatial filter, with distance 1 km.
-var distFilter = ee.Filter.withinDistance({
-  distance: 1000,
-  leftField: '.geo',
-  rightField: '.geo',
-  maxError: 10
-});
-
-var intersectfilter = ee.Filter.intersects({
-  leftField: '.geo',
-  rightField: '.geo',
-  maxError: 10
-});
-
-// Define a saveAll join.
-var distSaveAll = ee.Join.saveAll({
-  matchesKey: 'biome',
-  measureKey: 'distance'
-});
-
-var intersectSaveAll= ee.Join.saveAll({
-  matchesKey: 'biome'
-});
-
-
-// Apply the join.
-var networkbiomejoin = distSaveAll.apply(networks, biomes2017, distFilter);
-//print(networkbiomejoin.first())
-var networkbiomeintersect=intersectSaveAll.apply(networks,biomes2017,intersectfilter);
-
-
