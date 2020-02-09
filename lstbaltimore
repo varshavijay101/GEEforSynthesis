@@ -146,10 +146,13 @@ var LSTimg = surfTemp_img.select(bandname);
 
 /*
 Visualize the output
-Use the 
+To add an image stretch go the the Layers tab in the map
+Click the settings(wheel) on the land surface temp image
+in Range it says Custom.  Click this and select one of the image
+stretches below
 */
 
-Map.addLayer(name, {palette: ['blue', 'yellow', 'red']});
+Map.addLayer(name, {palette: ['blue', 'yellow', 'red']},"name");
 
 /*
 Add a stretch to the 
