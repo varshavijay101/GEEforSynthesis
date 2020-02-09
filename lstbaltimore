@@ -21,18 +21,33 @@ currently at the British Geological Society. Tijana is focused on the critical p
 of urban green infrastructure. Citing green infrastructure projects involves optimizing
 accros multiple goals to allow for multi-functionality. In Baltimore county, 
 where her study was focused, one of the goals
-of green infrastructure implementation is the reduction of temperature.
+of green infrastructure implementation is the reduction of urban heat island effects.
 
 This critical question impacts ecological outcomes in urban settings, human health, as well
-as the location of stormwater volumes!
+as the management of stormwater volumes!
 */
 
 /*
 To answer this question we use Landsat 8 data to calculate Land Surface Temperature.
-First search for and import Landsat 8 Collection 1 Tier 1 Raw Images.
+First search for and import Landsat 8 Collection 1 Tier 1 Raw Images
+Explore these data by printing the first image. 
+To review Landsat 8 band values in greater detail than we did 
+in earlier lessons refer to
+https://landsat.gsfc.nasa.gov/landsat-8/landsat-8-bands/
+*/
 
+/*
+Now we will import a very useful GEE library developed by Eduardo Ribeiro Lacerda called GEET
+Visit his github site https://github.com/sacridini/GEET
+to add his Javascript library to your scripts
+
+Once added we call functions in the library using the require() function.
+*/
 
 var geet = require('users/elacerda/geet:geet'); 
+
+/*
+We also need to 
 ///Load Baltimore county/watershed extent
 var bmore= ee.Feature(baltimore)
 Map.addLayer(bmore)
