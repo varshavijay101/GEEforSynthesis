@@ -1,7 +1,9 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var humanmod = ee.ImageCollection("CSP/HM/GlobalHumanModification"),
-    Ecoregions2017 = ee.FeatureCollection("RESOLVE/ECOREGIONS/2017");
+    Ecoregions2017 = ee.FeatureCollection("RESOLVE/ECOREGIONS/2017"),
+    networks = ee.FeatureCollection("users/varshavijay101/GEEforSynthesis/networks");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
+
 ////////// Case Study: Human modification and habitat type for//////////// 
 //////////////////seed dispersal network samples ////////////////
  /*
@@ -49,7 +51,7 @@ This can be done by calling the image directly using the
 Image id found when printing the collection like below
 */
 
-var name= ee.Image('imageid')
+//var name= ee.Image('imageid')
 
 /*
 or by selecting the first image in this image collection
@@ -59,7 +61,7 @@ Select the image using the first() function
 when using these approaches*
 */
 
-var name=ee.Image(name.first())
+//var name=ee.Image(name.first())
 
 /*
 Comment out one of these approaches to get your final image and print
@@ -75,7 +77,7 @@ either color names or hex colors
 Use the appropriate Map. function
 */
 
-var vizparams= {min:0,max:1,palette: ['0000FF','FFFF00','FF0000']}//blue,yellow,red
+//var vizparams= {min:0,max:1,palette: ['0000FF','FFFF00','FF0000']}//blue,yellow,red
 
 /*
 Because we are doing calculations for sample regions
@@ -83,7 +85,7 @@ we need to understand the spatial resolution of these data
 Try this for the gHM data by modifying the code below
 */
 
-print(name.projection().nominalScale())
+//print(name.projection().nominalScale())
 
 /*
 This nominal scale is in agreement with the metadata
@@ -94,12 +96,15 @@ spatial resolution is nominal 1km
 Now import the network sample locations from the Resources
 page of the workshop website. The csv file is called
 GEEforSynthesisNETWORKS
+Import as csv and add to code editor.
+Cast object to FeatureCollection
 */
 
-
+var networks= ee.FeatureCollection(networks)
+print(networks)
 
 //Import fusion table input for network sample locations and converts to feature collection
-var networks = ee.FeatureCollection('ft:1T5uT7HqOoi8NMiNAKz-AHGytpuinpjSS4HItZ_ru');
+//var networks = ee.FeatureCollection('ft:1T5uT7HqOoi8NMiNAKz-AHGytpuinpjSS4HItZ_ru');
 //print(networks)
 //
 //Add networks to map
