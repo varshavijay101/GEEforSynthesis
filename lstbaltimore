@@ -96,7 +96,7 @@ var lse = geet.surface_emissivity(img_pv);
 var surfTemp_img = geet.surface_temperature_oli(lse);
 var im = surfTemp_img.select("LST");
 print(im);
-Map.addLayer(im, {min: 7000, max: 8000, palette: ['blue', 'green', 'red']});
+Map.addLayer(im, {palette: ['blue', 'green', 'red']});
 
 /*
 Having filtered our image collection to a single image, we can
@@ -151,5 +151,5 @@ var LSTimg = surfTemp_img.select(bandname);
 
 Visualize the output
 print(im);
-Map.addLayer(im, {min: 7000, max: 8000, palette: ['blue', 'green', 'red']});
+Map.addLayer(im, { palette: ['blue', 'green', 'red']});
 
