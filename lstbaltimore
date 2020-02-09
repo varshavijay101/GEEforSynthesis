@@ -74,12 +74,30 @@ study.
 See below for a start on this.
 */
 
+//var image2 = ee.Image(
+  //name.filterBounds()
+    //.filterDate()
+    //.sort()//sort by cloud cover values
+    //.first()
+//);
+var geet = require('users/elacerda/geet:geet'); 
+
 var image2 = ee.Image(
-  name.filterBounds()
-    .filterDate()
-    .sort()//sort by cloud cover values
+  l8raw.filterBounds(baltimore)
+    .filterDate('2018-07-01', '2018-7-31')
+    .sort('CLOUD_COVER')
     .first()
 );
+var new_toa_radiance = geet.toa_radiance(image2, 10);
+print(new_toa_radiance)
+var brightness_temp_img = geet.brightness_temp_l8c(new_toa_radiance, true);
+var l8_ndvi = geet.ndvi_l8(brightness_temp_img); 
+var img_pv = geet.prop_veg(l8_ndvi);
+var lse = geet.surface_emissivity(img_pv);
+var surfTemp_img = geet.surface_temperature_oli(lse);
+var im = surfTemp_img.select("LST");
+print(im);
+Map.addLayer(im, {min: 7000, max: 8000, palette: ['blue', 'green', 'red']});
 
 /*
 Having filtered our image collection to a single image, we can
