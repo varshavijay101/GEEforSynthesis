@@ -72,17 +72,19 @@ by first filtering to the least cloudy image for July 2018.
 See below for a start on this.
 */
 
-///filter raw by spatial extent, date and cloud cover
 var image2 = ee.Image(
   name.filterBounds()
     .filterDate()
-    .sort()//this makes sure that the first image is the least cloudy
+    .sort()//sort by cloud cover values
     .first()
 );
 
 /*
 Having filtered our image collection to a single image, we can
-use the 
+use the GEET library to process the raw image to obtain surface
+reflectance values
+*/
+
 var new_toa_radiance = geet.toa_radiance(image2, 10);
 var brightness_temp_img = geet.brightness_temp_l8c(new_toa_radiance, true);
 var l8_ndvi = geet.ndvi_l8(brightness_temp_img); 
@@ -94,4 +96,3 @@ print(im);
 Map.addLayer(im, {min: 7000, max: 8000, palette: ['blue', 'green', 'red']});
 
 //
-*/
