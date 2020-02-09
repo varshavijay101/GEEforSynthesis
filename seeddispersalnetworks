@@ -1,7 +1,7 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var humanmod = ee.ImageCollection("CSP/HM/GlobalHumanModification"),
     Ecoregions2017 = ee.FeatureCollection("RESOLVE/ECOREGIONS/2017"),
-    networks = ee.FeatureCollection("users/varshavijay101/GEEforSynthesis/networks3");
+    networks = ee.FeatureCollection("users/varshavijay101/networks");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
 ////////// Case Study: Human modification and habitat type for//////////// 
@@ -95,23 +95,39 @@ spatial resolution is nominal 1km
 /*
 Now import the network sample locations from the Resources
 page of the workshop website. The csv file is called
-GEEforSynthesisNETWORKS. *Note this is a subset of of the original data
-Import as csv and add to code editor. Cast object to FeatureCollection
+networks. *view README to see explanation and changes from original data
+Import as csv and add to code editor.
+Cast object to FeatureCollection.
+Add to Map.
 */
 
-var networks= ee.FeatureCollection(networks)
+var name= ee.FeatureCollection(tablename)
+
+/*
+If you do not see your point data then go back and Import, 
+this time paying attention to the x,y fields of the import.
+Make sure they match the Longitude and Latitude columns
+of the original dataset exactly.
+Now reimport with the correct values and visualize in Map.
+/*
+
+Map.addLayer(name,{},'name')//This syntax can be used to name but use standard viz
 
 /*
 See how many network sample locations are in the dataset
 using the size() function and print to view data properties
 */
 
-print(networks)
+print(name.size())
 
-//Add networks to Map
-Map.centerObject(networks)
-Map.addLayer(networks,{},'networks')//,
-//Get human mod index for all sites
+/*
+Now that both the gHM data and network samples are loaded in the 
+code editor calculate the gHM index for all sites.
+
+To do this we use the reduceRegions function.  This is a similar
+concept to Zonal Statistics in GIS softwares like ArcGIS.
+*/
+
 var networkmod= ghm.reduceRegions({
   collection: networks,
   reducer: ee.Reducer.mean(),//.unweighted(),
