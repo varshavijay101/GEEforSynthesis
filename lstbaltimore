@@ -140,7 +140,7 @@ var l8_ndvi = geet.ndvi_l8(name);
 var img_pv = geet.prop_veg(name);
 var lse = geet.surface_emissivity(name);
 var surfTemp_img = geet.surface_temperature_oli(name);//print this
-//Using the printed surface temp image above find '
+//Using the printed surface temp image above find
 //the land surface temp band
 var LSTimg = surfTemp_img.select(bandname);
 
