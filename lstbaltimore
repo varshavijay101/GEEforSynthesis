@@ -46,7 +46,7 @@ Once added we call functions in the library using the require() function.
 
 var geet = require('users/elacerda/geet:geet'); 
 
-/*
+//
 We also need to 
 ///Load Baltimore county/watershed extent
 var bmore= ee.Feature(baltimore)
