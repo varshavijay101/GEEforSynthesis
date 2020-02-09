@@ -193,18 +193,50 @@ of anthropogenic influence and gHM.
 
 We run the reduceRegions function to answer this question.
 This gives us the mean value for EACH sample location.
+For interpretability I use the setOutputs function
+assign the name 'meanghi' for the value.  
+Default is 'mean'.
 */
 
 var networkmodBUFF= ghm.reduceRegions({
-  collection: networks,
-  reducer: ee.Reducer.mean(),
+  collection: namebuff,
+  reducer: ee.Reducer.mean().setOutputs(['meanghi']),
   scale:ghm.projection().nominalScale()
   })
 
 /*
 YAY! Having determined mean gHM for each sample lets explore what
 that means
+
+Print the resulting dataset.  Note the object type! This is different
+than the output of reduceRegion.
+
 */
+
+///////////////////////Bonus Section////////////////////////////////
+
+/*
+At this stage I exported this results for statistical analyses in R.
+However for additional practice lets do some more filtering and reducing.
+
+Evan found greater numbers of invasive species and interactions
+in oceanic islands. 
+
+Do oceanic islands tend to have greater anthropogenic impacts?
+Using the ReduceRegion function determine whether oceanic islands 
+have greater mean gHM than all samples.  How does this compare
+to continental islands?
+*/
+
+
+/*
+Use the filterMetadata function to identify oceanic islands and continental islands
+Review the original dataset to see how this information is stored
+*/
+
+name
+
+
 
 
 
