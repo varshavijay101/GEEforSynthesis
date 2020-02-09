@@ -1,0 +1,27 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var l8raw = ee.ImageCollection("LANDSAT/LC08/C01/T1"),
+    baltimore = ee.FeatureCollection("users/varshavijay101/BaltimoreCityPolygone_100Buffer");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+///Land surface temp calculations for Tijana-10/22/19
+var geet = require('users/elacerda/geet:geet'); 
+///Load Baltimore county/watershed extent
+var bmore= ee.Feature(baltimore)
+Map.addLayer(bmore)
+///filter raw by spatial extent, date and cloud cover
+var image2 = ee.Image(
+  l8raw.filterBounds(baltimore)
+    .filterDate('2018-07-01', '2018-7-31')///supply start end dates for imagery...this includes all images so you might want to create monthly averages etc
+    .sort('CLOUD_COVER')//Pull
+    .first()
+);
+var new_toa_radiance = geet.toa_radiance(image2, 10);
+var brightness_temp_img = geet.brightness_temp_l8c(new_toa_radiance, true);
+var l8_ndvi = geet.ndvi_l8(brightness_temp_img); 
+var img_pv = geet.prop_veg(l8_ndvi);
+var lse = geet.surface_emissivity(img_pv);
+var surfTemp_img = geet.surface_temperature_oli(lse);
+var im = surfTemp_img.select("LST");
+print(im);
+Map.addLayer(im, {min: 7000, max: 8000, palette: ['blue', 'green', 'red']});
+
+//
