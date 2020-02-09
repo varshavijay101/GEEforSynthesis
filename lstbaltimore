@@ -155,6 +155,15 @@ stretches below
 Map.addLayer(name, {palette: ['blue', 'yellow', 'red']},"name");
 
 /*
-Add a stretch to the 
+If green infrastructure can play a role in reducing urban heat,
+then let us investigate the relationship between vegetation occurence
+and land surface temperature.  We do this using the
+Normalized Difference Vegetation Index(NDVI) 
+read more in the link below
+https://gisgeography.com/ndvi-normalized-difference-vegetation-index/
+*/
+
+
+
 
 
