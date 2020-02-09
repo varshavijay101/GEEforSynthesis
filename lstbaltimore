@@ -48,7 +48,8 @@ https://landsat.gsfc.nasa.gov/landsat-8/landsat-8-bands/
 */
 
 /*
-Now we will import a very useful GEE library developed by Eduardo Ribeiro Lacerda called GEET
+Now we will import a very useful Google Earth Engine Toolbox (GEET)
+library developed by Eduardo Ribeiro Lacerda called GEET
 Visit his github site https://github.com/sacridini/GEET
 to add his Javascript library to your scripts
 
@@ -67,15 +68,21 @@ Name geometry object.
 
 /*
 Now begin processing imagery from the raw Landsat image collection
-
+by first filtering to the least cloudy image for July 2018.
+See below for a start on this.
+*/
 
 ///filter raw by spatial extent, date and cloud cover
 var image2 = ee.Image(
-  l8raw.filterBounds(baltimore)
-    .filterDate('2018-07-01', '2018-7-31')///supply start end dates for imagery...this includes all images so you might want to create monthly averages etc
-    .sort('CLOUD_COVER')//Pull
+  name.filterBounds()
+    .filterDate()
+    .sort()//this makes sure that the first image is the least cloudy
     .first()
 );
+
+/*
+Having filtered our image collection to a single image, we can
+use the 
 var new_toa_radiance = geet.toa_radiance(image2, 10);
 var brightness_temp_img = geet.brightness_temp_l8c(new_toa_radiance, true);
 var l8_ndvi = geet.ndvi_l8(brightness_temp_img); 
