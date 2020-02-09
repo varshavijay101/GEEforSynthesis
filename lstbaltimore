@@ -182,10 +182,22 @@ Great job! That makes sense.
 */
 
 /*
-Finally, lets explore temporal trends in land surface temperature using
-another dataset of land surface temperature. 
+Finally, lets explore temporal trends in land surface temperature in
+Baltmore using another land surface temperature datastet. 
 Search for the MOD11A2.006 Terra Land Surface Temperature and Emissivity 8-Day Global 1km
 dataset and add to code editor.
+*/
+
+/*
+We use the following function to add a time band 
+and rescale values from milliseconds
+for each image in the image collection
+*/
+
+var createTimeBand = function(image) {
+   return image.addBands(image.metadata('system:time_start').divide(1e18));
+};
+
 
 
 
