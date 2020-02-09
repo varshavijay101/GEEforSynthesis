@@ -80,7 +80,6 @@ See below for a start on this.
     //.sort()//sort by cloud cover values
     //.first()
 //);
-var geet = require('users/elacerda/geet:geet'); 
 
 var image2 = ee.Image(
   l8raw.filterBounds(baltimore)
@@ -133,7 +132,7 @@ https://code.earthengine.google.com/d938f04d6a06c0049abf39d358c0c969
 *hint-each function uses the output of the previous*
 
 Feel free to print the outputs to see what is changing
-*/
+
 var new_toa_radiance = geet.toa_radiance(name, 10);
 var brightness_temp_img = geet.brightness_temp_l8c(name, true);
 var l8_ndvi = geet.ndvi_l8(name); 
@@ -143,6 +142,10 @@ var surfTemp_img = geet.surface_temperature_oli(name);//print this
 //Using the printed surface temp image above find
 //the land surface temp band
 var LSTimg = surfTemp_img.select(bandname);
+*/
+
+
+
 
 /*
 
