@@ -95,16 +95,18 @@ spatial resolution is nominal 1km
 /*
 Now import the network sample locations from the Resources
 page of the workshop website. The csv file is called
-GEEforSynthesisNETWORKS
-Import as csv and add to code editor.
-Cast object to FeatureCollection
+GEEforSynthesisNETWORKS. *Note this is a subset of of the original data
+Import as csv and add to code editor. Cast object to FeatureCollection
 */
 
 var networks= ee.FeatureCollection(networks)
-print(networks)
 
-//Import fusion table input for network sample locations and converts to feature collection
-//var networks = ee.FeatureCollection('ft:1T5uT7HqOoi8NMiNAKz-AHGytpuinpjSS4HItZ_ru');
+/*
+See how many network sample locations are in the dataset
+using the size() function and print to v
+*/
+
+print('Count:',networks.size())
 //print(networks)
 //
 //Add networks to map
