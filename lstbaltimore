@@ -1,6 +1,17 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var l8raw = ee.ImageCollection("LANDSAT/LC08/C01/T1"),
-    baltimore = ee.FeatureCollection("users/varshavijay101/BaltimoreCityPolygone_100Buffer");
+    baltimore = 
+    /* color: #d63000 */
+    /* displayProperties: [
+      {
+        "type": "rectangle"
+      }
+    ] */
+    ee.Geometry.Polygon(
+        [[[-77.02304685972433, 39.622709223317614],
+          [-77.02304685972433, 39.206813691422255],
+          [-76.29794920347433, 39.206813691422255],
+          [-76.29794920347433, 39.622709223317614]]], null, false);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 ////////// Case Study: Land Surface Temperature //////////////////
 /////////////////// in Baltimore county //////////////////////////
@@ -46,11 +57,18 @@ Once added we call functions in the library using the require() function.
 
 var geet = require('users/elacerda/geet:geet'); 
 
-//
-We also need to 
-///Load Baltimore county/watershed extent
-var bmore= ee.Feature(baltimore)
-Map.addLayer(bmore)
+/*
+We also need to define the study area. As we did in a 
+previous lesson, draw a the study area around the city of
+Baltimore. Draw an area including the surrounding areas
+to better approximate the county of Baltimore.
+Name geometry object.
+*/
+
+/*
+Now begin processing imagery from the raw Landsat image collection
+
+
 ///filter raw by spatial extent, date and cloud cover
 var image2 = ee.Image(
   l8raw.filterBounds(baltimore)
@@ -69,3 +87,4 @@ print(im);
 Map.addLayer(im, {min: 7000, max: 8000, palette: ['blue', 'green', 'red']});
 
 //
+*/
