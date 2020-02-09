@@ -11,7 +11,8 @@ var l8raw = ee.ImageCollection("LANDSAT/LC08/C01/T1"),
         [[[-77.02304685972433, 39.622709223317614],
           [-77.02304685972433, 39.206813691422255],
           [-76.29794920347433, 39.206813691422255],
-          [-76.29794920347433, 39.622709223317614]]], null, false);
+          [-76.29794920347433, 39.622709223317614]]], null, false),
+    image = ee.Image("OpenLandMap/CLM/CLM_LST_MOD11A2-DAY_M/v01");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 ////////// Case Study: Land Surface Temperature //////////////////
 /////////////////// in Baltimore county //////////////////////////
@@ -142,7 +143,7 @@ var lse = geet.surface_emissivity(name);
 var surfTemp_img = geet.surface_temperature_oli(name);//print this
 //Using the printed surface temp image above find
 //the land surface temp band
-var LSTimg = surfTemp_img.select(bandname);
+var LSTimg = surfTemp_img.select('bandname');
 
 
 /*
@@ -167,10 +168,24 @@ https://gisgeography.com/ndvi-normalized-difference-vegetation-index/
 /*
 If you scroll up in this script.  You will see that we already calculated
 this.  Use the select function to get the NDVI band from the l8_ndvi image.
+Visualize in Map.
 */
 
+var name = surfTemp_img.select(bandname);
+Map.addLayer(name)
 
+/*
+Looking at these two images (toggle on and off and reset the stretch)
+it seems that the areas with high levels of vegetation (high NDVI values)
+do seem to have lower land surface temperatures.
+Great job! That makes sense.
+*/
 
+/*
+Finally, lets explore temporal trends in land surface temperature using
+another dataset of land surface temperature. 
+Search for the MOD11A2.006 Terra Land Surface Temperature and Emissivity 8-Day Global 1km
+dataset and add to code editor.
 
 
 
