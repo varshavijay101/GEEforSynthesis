@@ -1,7 +1,7 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var humanmod = ee.ImageCollection("CSP/HM/GlobalHumanModification"),
     Ecoregions2017 = ee.FeatureCollection("RESOLVE/ECOREGIONS/2017"),
-    networks = ee.FeatureCollection("users/varshavijay101/GEEforSynthesis/networks");
+    networks = ee.FeatureCollection("users/varshavijay101/GEEforSynthesis/networks3");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 
 ////////// Case Study: Human modification and habitat type for//////////// 
@@ -103,14 +103,14 @@ var networks= ee.FeatureCollection(networks)
 
 /*
 See how many network sample locations are in the dataset
-using the size() function and print to v
+using the size() function and print to view data properties
 */
 
-print('Count:',networks.size())
-//print(networks)
-//
-//Add networks to map
-Map.addLayer(networks,{},'networks')//{color: 'FF0000'},
+print(networks)
+
+//Add networks to Map
+Map.centerObject(networks)
+Map.addLayer(networks,{},'networks')//,
 //Get human mod index for all sites
 var networkmod= ghm.reduceRegions({
   collection: networks,
