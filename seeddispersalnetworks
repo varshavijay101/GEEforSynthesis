@@ -210,10 +210,26 @@ that means
 
 Print the resulting dataset.  Note the object type! This is different
 than the output of reduceRegion.
-
 */
 
-///////////////////////Bonus Section////////////////////////////////
+/*
+Finally, export the data as a csv to your Google drive.
+Because the geometry column chews up unnecessary space we remove
+that in the export code using the select function.
+The last arguement to select is retainGeometry: "When false, the result will have a NULL geometry."
+This is incredibly useful to speed up and reduce size of the
+exported table
+*/
+
+Export.table.toDrive({
+  collection: networkmodBUFF.select([".*"],null,false),
+  description: 'networkmodbuff',
+  folder: 'Evan',
+  fileFormat:'CSV'
+});
+
+
+///////////////////////Bonus Section in Development////////////////////////////////
 
 /*
 At this stage I exported this results for statistical analyses in R.
@@ -233,25 +249,6 @@ to continental islands?
 Use the filterMetadata function to identify oceanic islands and continental islands
 Review the original dataset to see how this information is stored
 */
-
-name
-
-
-
-
-
-
-//.unweighted(),
-//Check image reduction
-//print(ghm.bandNames())
-//print(networkmod.limit(2))//.select(ghm.bandNames()))
-//Export table to V's drive
-Export.table.toDrive({
-  collection: networkmod,
-  description: 'networkmodpt',
-  folder: 'Evan',
-  fileFormat:'CSV'
-});
 
 //Filter Islands
 
@@ -306,12 +303,6 @@ Export.table.toDrive({
   fileFormat:'CSV'
 });
 
-///////Spatial Join code....currently still produces list of list
-///////However overall good to know this method because the current one
-///////Is error prone in areas near boundaries of biomes/ecoregions
-///////multiple biomes will be assigned to a single sample point
-///////Intersect/spatial join is the only way to ensure a hard cutoff
-/*
 
 // Define a spatial filter, with distance 1 km.
 var distFilter = ee.Filter.withinDistance({
@@ -343,61 +334,4 @@ var networkbiomejoin = distSaveAll.apply(networks, biomes2017, distFilter);
 //print(networkbiomejoin.first())
 var networkbiomeintersect=intersectSaveAll.apply(networks,biomes2017,intersectfilter);
 
-/*
-///Spatial Join with tolerance
-// Add Biome name as a property
-var biomenamenetworkjoin = networkbiomejoin.map(function(network) {
-  // Get the name of the biome
-  var biome = network.get('points');
-  // Return the network with a new property for biome name
-  return network.set('biome', biome);
-});
 
-///Spatial Intersect
-// Add Biome name as a property
-var biomenamenetworkintersect = networkbiomeintersect.map(function(network) {
-  // Get the name of the biome
-  var biome = network.get('BIOME_NAME');
-  // Return the network with a new property for biome name
-  return network.set('biome', biome);
-});
-*/
-////////////////////////////////////////////////////
-/*
-//Alternate approach to spatial intersection
-var networksgetbiomes= networks.map(function(feat){
-  feat = ee.Feature(feat);
-  return  ee.Feature(feat.geometry().intersection(biomes2017), {}).copyProperties(feat);
-});
-
-print(networksgetbiomes.first())
-
-// Print the result.
-print(networkbiomejoin.first());
-
-print(networkbiomeintersect.first());
-
-/*
-//Map result
-Map.addLayer(networkbiomejoin,{},'networkbiomejoin')
-Map.addLayer(networkbiomeintersect,{},'networkbiomeintersect')
-
-
-//Export tables
-//Export table to V's drive
-Export.table.toDrive({
-  collection: networkbiomejoin,
-  description: 'networkbiomejoin',
-  folder: 'Evan',
-  fileFormat:'CSV'
-});
-
-//Export table to V's drive
-Export.table.toDrive({
-  collection: networkbiomeintersect,
-  description: 'networkbiomeintersect',
-  folder: 'Evan',
-  fileFormat:'CSV'
-});
-
-*/
