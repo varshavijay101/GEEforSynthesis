@@ -228,7 +228,11 @@ Export.table.toDrive({
   fileFormat:'CSV'
 });
 
-
+/*
+Nothing happens!  That is because you need to click the Tasks
+tab on the right and run the task.
+Download from Google Drive to ensure the expected output.
+*/
 ///////////////////////Bonus Section in Development////////////////////////////////
 
 /*
