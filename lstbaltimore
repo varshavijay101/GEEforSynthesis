@@ -2,7 +2,20 @@
 var l8raw = ee.ImageCollection("LANDSAT/LC08/C01/T1"),
     baltimore = ee.FeatureCollection("users/varshavijay101/BaltimoreCityPolygone_100Buffer");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-///Land surface temp calculations for Tijana-10/22/19
+////////// Case Study: Land Surface Temperature //////////////////
+/////////////////// in Baltimore county //////////////////////////
+ /*
+ 2020 Varsha Vijay GEEforSynthesis 
+ https://sites.google.com/view/geeforsynthesis
+ 
+*/
+
+//This case study comes from a collaboration with 
+//Dr. Tijana Jovanovic.
+//Please read below for background.
+
+/*
+
 var geet = require('users/elacerda/geet:geet'); 
 ///Load Baltimore county/watershed extent
 var bmore= ee.Feature(baltimore)
