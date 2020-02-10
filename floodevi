@@ -125,7 +125,7 @@ Export.table.toDrive({
 });
 
 /*
-
+Using the stream gage data we found that the 
 
 ///Global mean timing of max evi
 var months = ee.List.sequence(1, 12);
