@@ -1,10 +1,6 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var modisevi = ee.ImageCollection("Oxford/MAP/EVI_5km_Monthly"),
-    gage = ee.FeatureCollection("users/varshavijay101/jamesgagesites"),
-    hansen = ee.Image("UMD/hansen/global_forest_change_2018_v1_6"),
-    terraevi = ee.ImageCollection("MODIS/006/MOD13Q1"),
-    aquaevi = ee.ImageCollection("MODIS/006/MYD13Q1"),
-    geometry = /* color: #d63000 */ee.Geometry.Point([-10.690783599076667, 7.049440829723482]);
+    hansen = ee.Image("UMD/hansen/global_forest_change_2018_v1_6");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 ////////// Influence of Phenology on Runoff Response //////////////////
 ///////////////////////to Forest Loss //////////////////////////
@@ -19,21 +15,34 @@ var modisevi = ee.ImageCollection("Oxford/MAP/EVI_5km_Monthly"),
 //Please read below for background.
 
 /*
-Dr. James Knighton, an enviornmental engineer and fellow postdoctoral researcher at SESYNC,
-is investigating hydrologic responses to forest cover loss.  Using global stream gage data,
-estimates of 
+Dr. James Knighton, an environmental engineer and fellow postdoctoral researcher at SESYNC,
+is investigating hydrologic responses to forest cover loss. 
+One of the questions he has is whether variability in stream gage 
+runnoff responses to forest loss can be explained by
+phenological patterns (periodic cyling of vegetation). By evaluating this, and other potential
+predictors, he hopes to characterize flood risk post-deforestation.
 
+This has implications for the management of these systems as well as determining potential benefits
+of reforestation efforts.
 */
 
-///load locations for stream gages
-var sites=ee.FeatureCollection(gage,'geometry')
-var sitesnudge=ee.FeatureCollection('users/jok8/Sites_Nudged_112019')
-Map.addLayer(sites,{},'sites')
-print(sites.limit(2))
-////Lossyear
-var lossyear=hansen.select('lossyear')
-Map.addLayer(lossyear,{min:0,max:18},'lossyear')
-/////Time series charting for EVI
+/*
+Here, we focus on characterizing vegetation phenology using MODIS EVI data.
+The approaches used in this analysis combines the approaches used in the previous analysis.
+Because of that, this lesson is shorter and is provided as fully functional code, commented
+to explain some of the thought process behind the approach used.
+
+Go through the lesson and explore, using visualization and printing where
+you need further clarification
+*/
+
+//Load stream gage data
+var gagesites=ee.FeatureCollection('users/varshavijay101/GEEforSynthesis/gagesites')
+Map.addLayer(gagesites,{},'sites')
+
+
+/*
+We use Oxford MAP EVI, a global, gap filled monthly EVI estimate 
 ///Select Mean EVI band from Image Collection
 var meanevi = modisevi.select('Mean').filterDate('2000-01-01', '2018-12-01');
 ////import samples and buffer(not necessary for polygon data)
@@ -162,3 +171,7 @@ var compositeterraevi = ee.ImageCollection.fromImages(months.map(function(m) {
 
 //print(compositeterraevi)
 */
+
+////Lossyear
+var lossyear=hansen.select('lossyear')
+Map.addLayer(lossyear,{min:0,max:18},'lossyear')
