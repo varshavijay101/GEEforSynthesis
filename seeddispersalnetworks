@@ -232,7 +232,14 @@ Export.table.toDrive({
 Nothing happens!  That is because you need to click the Tasks
 tab on the right and run the task.
 Download from Google Drive to ensure the expected output.
+
+At this stage we can finish and use these data for further
+statistical analysis. If interested continue below for some more 
+practice and to better understand the values we calculated
 */
+
+/*
+
 
 /*
 Evan found greater numbers of invasive species and interactions
@@ -256,7 +263,8 @@ var name=name.filterMetadata('property','equals','field')
 
 /*
 Use reduce region to produce estimates of mean gHM in oceanic islands, continental islands
-print and compare to the overall mean 
+print and compare the means of each region
+*/
 
 
 
