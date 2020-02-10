@@ -77,12 +77,12 @@ See below for script to filter the image collection by time and
 cloud cover.
 */
 
-//var image2 = ee.Image(
-  //name.filterBounds()
-    //.filterDate()
-    //.sort()//sort by cloud cover values
-    //.first()
-//);
+var name = ee.Image(
+  name.filterBounds()
+    .filterDate()
+    .sort()//sort by cloud cover values
+    .first()
+);
 
 
 var new_toa_radiance = geet.toa_radiance(image2, 10);
@@ -186,7 +186,8 @@ We are only interested in LST so use the .select function to get the
 LST_Day_1km band
 
 MODIS LST values are scaled and stored in degrees K so we need to convert
-to C to interpret the values
+to C to interpret the values.  We are also preserving the time of data
+acquisition for later analysis.
 */
 
 var name = name.select(bandname)
@@ -194,7 +195,8 @@ var name = name.select(bandname)
 var modLSTc = name.map(function(img) {
   return img
     .multiply(0.02)//correct for scaling
-    .subtract();//conversion from K to C
+    .subtract()//conversion from K to C
+    .copyProperties(img, ['system:time_start']);
 });
 
 /*
