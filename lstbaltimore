@@ -261,7 +261,6 @@ Scroll down on the console to see the chart output.
 Hover over the chart for information about individual data points
 */
 
-// Chart time series of LST for Uganda in 2015.
 var chartLST = ui.Chart.image.series({
   imageCollection: name,
   region: baltimore,
@@ -276,7 +275,7 @@ print(chartLST);
 /*
 Great job! This chart is interesting but difficult to interpret.
 Given the focus of Tijana's work, a mean estimate of trends is also not
-as useful as a better understanding of the variability in trends.
+as useful as a better understanding of the variability in max LST trends.
 
 So, our final attempt to understand these data is to run a pixel based regression
 for every pixel in our study region.
