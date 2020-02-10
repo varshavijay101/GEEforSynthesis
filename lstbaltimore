@@ -193,8 +193,8 @@ var name = name.select(bandname)
 
 var modLSTc = name.map(function(img) {
   return img
-    .multiply(0.02)
-    .subtract(273.15);
+    .multiply(0.02)//correct for scaling
+    .subtract();//conversion from K to C
 });
 
 /*
