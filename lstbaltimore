@@ -1,8 +1,3 @@
-/**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var l8raw = ee.ImageCollection("LANDSAT/LC08/C01/T1"),
-    image = ee.Image("OpenLandMap/CLM/CLM_LST_MOD11A2-DAY_M/v01"),
-    baltimore = ee.FeatureCollection("users/varshavijay101/GEEforSynthesis/BaltimoreCity_100Buffer");
-/***** End of imports. If edited, may not auto-convert in the playground. *****/
 ////////// Case Study: Land Surface Temperature //////////////////
 /////////////////// in Baltimore county //////////////////////////
  /*
