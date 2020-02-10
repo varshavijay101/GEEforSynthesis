@@ -92,7 +92,9 @@ our sample locations. This becomes a little complicated but is just the extensio
 of the application of mapped functions we were using before.  In this case we are mapping 
 over all the images in the meanevi image collection, and assigning the Mean EVI value for 
 that image to the feature (excluding null values). Then we are assigning the image ID
-to each feature
+to each feature.  Finally we create a null geometry function to remove geometry values
+in the output.  An alternative approach to setting null geometries was shown in previous
+lessons.
 */
 
 var gageevi = meanevi.map(function(image) {
@@ -106,8 +108,8 @@ var gageevi = meanevi.map(function(image) {
     return feature.set({
       'ID': image.id(),
     });});
-}).flatten();
-//print(meanevi.first())
+}).flatten();//Experiment with what the output looks without the flatten() function
+
 print(gageevi.limit(10))
 
 var nullgeom= function(feature){
@@ -117,6 +119,7 @@ var nullgeom= function(feature){
 var gageeviNULL=  gageevi.map(nullgeom)
 print(gageeviNULL.first())
 
+//Export the csv of time series data to Google Drive
 Export.table.toDrive({
   collection: gageeviNULL,
   folder:'GEEforSynthesis',
@@ -125,17 +128,19 @@ Export.table.toDrive({
 });
 
 /*
-Using the stream gage data we found that the 
+Using the stream gage data we found a relationship between EVI 
+(specifically phase shift, defined as the difference between the timing of max precipitation and max EVI)
+and observed changes in runoff.  Based on the stream gage level findings we wanted
+to calculate the most common month for max EVI globally. This is done using the following set of functions
+*/
 
-///Global mean timing of max evi
 var months = ee.List.sequence(1, 12);
 var years = ee.List.sequence(2000, 2018);
 ///refilter collection for ease of code
 var meanevi=modisevi
-  .filter(ee.Filter.calendarRange(2000,2018,'year'))
+  .filter(ee.Filter.calendarRange(2000,2016,'year'))
   .filter(ee.Filter.calendarRange(1,12,'month'))
   .sort('system:time_start')
-  // .filterBounds(ROI)
   .select("Mean")
 var add_bands = function(image) {
   image = ee.Image(image);
@@ -147,11 +152,11 @@ print(meanevi,'meanevi')
 var maxmonthbyyear = ee.ImageCollection.fromImages(
       years.map(function (y) {
         return meanevi.filter(ee.Filter.calendarRange(y, y, 'year'))
-                    .qualityMosaic('Mean')//.select('month')
-                    .set('year', y)
-                    //.map(add_bands);
+                    .qualityMosaic('Mean')
+                    .set('year', y);
 }));
-print(maxmonthbyyear);
+
+print(maxmonthbyyear,"maxmonthbyyear");
 
 var maxmonth=maxmonthbyyear.select('month')
 
@@ -159,7 +164,7 @@ var modemaxevimonth=maxmonth.mode()
 print(modemaxevimonth)
 
 Map.addLayer(modemaxevimonth)
-//print(modemaxevimonth.projection().nominalScale)
+print(modemaxevimonth.projection().nominalScale)
 //Export global image data
 var unboundedGeo = ee.Geometry.Polygon([-180, 88, 0, 88, 180, 88, 180, -88, 0, -88, -180, -88], null, false);
 
