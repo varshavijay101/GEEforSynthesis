@@ -95,7 +95,7 @@ spatial resolution is nominal 1km
 /*
 Now import the network sample locations from the Resources
 page of the workshop website. The csv file is called
-networks. *view README to see explanation and changes from original data
+networks.csv *view README to see explanation and changes from original data
 Import as csv and add to code editor.
 Cast object to FeatureCollection.
 Add to Map.
@@ -222,12 +222,8 @@ print('gHM stats:', name.aggregate_stats('meanghi'));
 
 /*
 Evan found greater numbers of invasive species and interactions
-in islands. 
-
-Is there a relationship between this and anthropogenic impacts (gHM)?
-Using the ReduceRegion function determine whether oceanic islands 
-have greater mean gHM than non-island samples.  How does this compare
-to continental islands?
+in islands.
+Are island systems more modified by anthropogenic impacts than non-island systems?
 */
 
 
@@ -235,14 +231,14 @@ to continental islands?
 Use the filterMetadata function on the gHM dataset for network samples
 (referenced above in the export and aggregate_stats call)
 to identify oceanic islands, continental islands and non-island samples.
-Review the dataset to see how this information is stored.
+Data on continental islands is stored in 'Cont_Is' and oceanic islands in 'Oceanic_Is'
 Add a group id to each sample in the group using a mapped function
 Use the .size() function to determine how many samples fall into these categories
 */
 //Modify this code for each oceanic and continental island types
 var island1=name.filterMetadata('property','equals','field')//use this or ee.Filter.eq shown below
 .map(function(feature){return feature.set('group', 'string');});//keep consistent grouping property name
-
+print(island1.size())
 //identify non-island samples using boolean AND
 var nonisland=name
 .filter(ee.Filter.and(
@@ -261,21 +257,40 @@ In the GEE environment we will quickly determine the mean gHM value
 and sample year by group
 */
 
+var groupedsamplemn= groupedsamples.reduceColumns({
+    selectors: ['meanghi','Year','group'],
+    reducer: ee.Reducer.mean().repeat(2).group({
+      groupField: 2,
+      groupName: 'group',
+    })
+});
 
-
+print('groupedghimean',groupedsamplemn)
 
 /*
-Finally, export the data as a csv to your Google drive.
-Because the geometry column chews up unnecessary space we remove
-that in the export code using the select function.
-The last arguement to select is retainGeometry: "When false, the result will have a NULL geometry."
-This is incredibly useful to speed up and reduce size of the
-exported table
+Interesting! Now we can compare the group means for human modification and see that
+current estimates for gHI are lower on average in oceanic islands than in continental
+islands or non-island samples.  
+
+Comparing mean sample dates between the groups we see that continental samples have, on average an earlier sample date in the late ninties.  
+For earlier samples there may be differences in the true anthropogenic impacts at the 
+sample time than the gHM estimates (nominal year 2016).  Based on this, Evan
+considered sample date when making concusions about the impacts of gHM on invasive species
+and interactions.
+
+In reality we would want to examine the sample distributions in more detail and conduct
+statistical analyses outside the GEE environment (though the above is a useful example
+to calculate aggregate stats across region groups). So we export the data 
+as a csv to your Google drive. Because the geometry column chews up unnecessary space 
+we remove that in the export code using the select function.
+(The last arguement to select is retainGeometry: 
+"When false, the result will have a NULL geometry.")
+This is incredibly useful to speed up and reduce size of the exported table
 */
 
 Export.table.toDrive({
-  collection: networkmodBUFF.select([".*"],null,false),
-  description: 'networkmodbuff',
+  collection: groupedsamples.select([".*"],null,false),
+  description: 'networksampleghm',
   folder: 'Evan',
   fileFormat:'CSV'
 });
@@ -284,10 +299,6 @@ Export.table.toDrive({
 Nothing happens!  That is because you need to click the Tasks
 tab on the right and run the task.
 Download from Google Drive to ensure the expected output.
-
-At this stage we can finish and use these data for further
-statistical analysis. Continue below for some more 
-practice and to better understand the values we calculated
 */
 
 
