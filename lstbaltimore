@@ -189,10 +189,15 @@ Search for the imagecollection and add to code editor.
 
 These data are much coarser resolution than our estimate from landsat.
 Compare spatial resolutions of our calculated Landsat dataset and this MODIS
-dataset using the projection().nominalScale()
+dataset using the projection().nominalScale() function
 
-*Note MODIS data are in a
+*Note MODIS data are in a sinusoidal projection that is different from
+the other data in the data catalog.  We wont worry about that here but
+it is important to think about*
 */
+
+print(name.first().projection().nominalScale())//Fill with Modis Image Collection
+print(name.projection().nominalScale())//Landsat LST
 
 
 
