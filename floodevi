@@ -150,7 +150,7 @@ var add_bands = function(image) {
   return image.addBands(ee.Image.constant(ee.Number.parse(image.date().format("M"))).rename('month').float());
 };
 
-meanevi = meanevi.map(add_bands)//Map on image collection 
+meanevimap = meanevi.map(add_bands)//Map on image collection 
 //this could be combined with previous function but is expanded here for clarity
 
 /*
@@ -162,7 +162,8 @@ print(meanevi,'meanevi')
 /*
 Now the function below contains a function which returns a new image collection from
 the image collection meanevi. In it for each year we calculate the month with the highest
-EVI value for each pixel.  This results in an image collection of 
+EVI value for each pixel.  This results in an image collection with an image for each year
+*/
 
 var maxmonthbyyear = ee.ImageCollection.fromImages(
       years.map(function (y) {
@@ -171,15 +172,23 @@ var maxmonthbyyear = ee.ImageCollection.fromImages(
                     .set('year', y);
 }));
 
+
 print(maxmonthbyyear,"maxmonthbyyear");
 
+/*
+For this particular analysis we were interested in the most common month to find the max EVI
+so we select only the 'month' band from the image collection and reduce the image collection to
+a single image collection using the mode() function
+*/
 var maxmonth=maxmonthbyyear.select('month')
-
 var modemaxevimonth=maxmonth.mode()
 print(modemaxevimonth)
 
 Map.addLayer(modemaxevimonth,{},'modemaxevimonth')
-print(modemaxevimonth.projection().nominalScale)
+print(meanevi.first().select('Mean').projection().nominalScale())
+print(meanevimap.first().select('Mean').projection().nominalScale())
+print(maxmonthbyyear.first().select('month').projection().nominalScale())
+print(modemaxevimonth.projection().nominalScale())
 //Export region for global image data
 var unboundedGeo = ee.Geometry.Polygon([-180, 88, 0, 88, 180, 88, 180, -88, 0, -88, -180, -88], null, false);
 
