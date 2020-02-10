@@ -240,7 +240,7 @@ Add a group id to each sample in the group using a mapped function
 Use the .size() function to determine how many samples fall into these categories
 */
 //Modify this code for each oceanic and continental island types
-var name=name.filterMetadata('property','equals','field')//use this or ee.Filter.eq shown below
+var island1=name.filterMetadata('property','equals','field')//use this or ee.Filter.eq shown below
 .map(function(feature){return feature.set('group', 'string');});//keep consistent grouping property name
 
 //identify non-island samples using boolean AND
@@ -253,12 +253,13 @@ var nonisland=name
 Combine into a single dataset using the merge() function
 */
 
-var groupedsamples= nonisland.merge(contisland).merge(nonisland)
-
-
+var groupedsamples= nonisland.merge(island1).merge(island2)
 
 /*
-Interesting! SE
+This dataset with defined groups is useful for further analysis
+In the GEE environment we will quickly determine the mean gHM value
+and sample year by group
+*/
 
 
 
