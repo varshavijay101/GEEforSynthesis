@@ -273,8 +273,8 @@ var nonisland=name
 .filter(ee.Filter.and(ee.Filter.eq('property','field')))
 
 /*
-Use reduce region to produce estimates of mean gHM in oceanic islands, continental islands
-and other regions print and compare the means of each region
+Now let's create a chart showing distribution of gHM by group id.
+
 */
 
 
