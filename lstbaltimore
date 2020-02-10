@@ -188,7 +188,7 @@ of the Landsat image we used (July 8, 2018)
 
 var name = ee.Image(
   name
-  .filterDate('2018-07-01', '2018-7-14')
+  .filterDate('2018-07-10', '2018-7-14')
 );
 
 /*
