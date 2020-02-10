@@ -199,7 +199,9 @@ it is important to think about*
 print(name.first().projection().nominalScale())//Fill with Modis Image Collection
 print(name.projection().nominalScale())//Landsat LST
 
-
+/*
+Based on the difference in spatial resolution we expect differences in LST
+estimates between the two datasets.
 
 
 explore temporal trends in land surface temperature in
