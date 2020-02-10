@@ -251,11 +251,25 @@ the east coast using the MODIS LST image collection
 /*
 We use the following function to add a time band 
 and rescale milliseconds time values
+use the .map function to run this for each image in the image collection
 */
 
-var createTimeBand = function(image) {
+var addtimeband = function(image) {
    return image.addBands(image.metadata('system:time_start').divide(1e18));
 };
+
+/*
+Now we set up a linear regression (OLS) with a single predictor variable and
+constant.  We use the time aquisition date as independent variable and
+the MODIS LST as the dependent variable.
+
+To do this we create two band images where the independent variable is
+contained in the first band and the dependent in the second.  We then
+apply the linearFit reducer
+*/
+var LSTfit= name
+.select(['independent', 'dependent'])
+  .reduce(ee.Reducer.linearFit())
 
 
 
