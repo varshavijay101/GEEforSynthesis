@@ -245,31 +245,103 @@ we can agree that we have verified the Landsat LST data we produced
 /*
 Finally we'll do something super fun!
 We will explore temporal trends in land surface temperature in
-the east coast using the MODIS LST image collection
+Baltimore using the MODIS LST image collection
 */
 
 /*
 We use the following function to add a time band 
 and rescale milliseconds time values
 use the .map function to run this for each image in the image collection
+
+We also filter the image collection to include only July images
+obtained around the same time as our Landsat images
 */
 
 var addtimeband = function(image) {
    return image.addBands(image.metadata('system:time_start').divide(1e18));
 };
 
+var name= name
+.filter(ee.Filter.calendarRange(7,7,"month"))
+.filter(ee.Filter.calendarRange(10,14,"day_of_month"))
+.map(createTimeBand)
+
 /*
-Now we set up a linear regression (OLS) with a single predictor variable and
+Let's visualize the mean temporal trend of LST in Baltimore
+on a chart using the following code
+Scroll down on the console to see the chart output.
+Hover over the chart for information about individual data points
+*/
+
+// Chart time series of LST for Uganda in 2015.
+var chartLST = ui.Chart.image.series({
+  imageCollection: name,
+  region: baltimore,
+  reducer: ee.Reducer.mean(),
+  scale: 1000,
+  xProperty: 'system:time_start'})
+  .setOptions({
+     title: 'Title',
+     vAxis: {title: 'LST Celsius'}});
+print(chartLST);
+
+/*
+Great job! This chart is interesting but difficult to interpret.
+Given the focus of Tijana's work, a mean estimate of trends is also not
+as useful as a better understanding of the variability in trends.
+
+So, our final attempt to understand these data is to run a pixel based regression
+for every pixel in our study region.
+We set up a linear regression (OLS) with a single predictor variable and
 constant.  We use the time aquisition date as independent variable and
 the MODIS LST as the dependent variable.
 
 To do this we create two band images where the independent variable is
 contained in the first band and the dependent in the second.  We then
 apply the linearFit reducer
+
+The output of this analysis is a two band image. 
+The offset contains the intercept value.
+The scale contains the slope.  *Note this can be confusing because 
+scale typically refers to the spatial scale of an image*
+
+Add the model fit to the map where blue represents decreases in LST
+and red increases in peak (July) LST through time (2000-present)
+Apply an image stretch to make this more interpretable.
 */
 var LSTfit= name
 .select(['independent', 'dependent'])
   .reduce(ee.Reducer.linearFit())
+
+Map.addLayer(LSTfit.select('scale').clip(ROI), {min: -0.5, max: 0.5}, 'Scale')
+
+/*
+Great job! You should see some interesting trends in the variability of LST
+over time.
+Now, having completed this analysis we can export the processed Landsat LST
+and the Model fit data to Google Drive for further statistical analysis
+
+Complete the code below
+*/
+
+Export.image.toDrive({
+  image: LSTimg.clip(baltimore),
+  description: 'LST_Baltimore_Landsat8',
+  folder: 'foldername',
+  region: baltimore,
+  scale: 30,
+  crs: 'EPSG:4326',
+  maxPixels: 1e10});
+  
+  
+Export.image.toDrive({
+  image: LSTfit.clip(baltimore),
+  description: 'LST_Baltimore_fit',
+  folder: 'foldername',
+  region: baltimore,
+  scale: 30,
+  crs: 'EPSG:4326',
+  maxPixels: 1e10});
 
 
 
