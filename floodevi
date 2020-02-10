@@ -19,16 +19,8 @@ var modisevi = ee.ImageCollection("Oxford/MAP/EVI_5km_Monthly"),
 //Please read below for background.
 
 /*
-Dr. James Knighton  is trained in civil and environmental engineering 
-with a focus on water resources. She was a fellow postdoctoral researcher at SESYNC,
-currently at the British Geological Society. Tijana is focused on the critical problem
-of urban green infrastructure. Citing green infrastructure projects involves optimizing
-accros multiple goals to allow for multi-functionality. In Baltimore county, 
-where her study was focused, one of the goals
-of green infrastructure implementation is the reduction of urban heat island effects.
+Dr. James Knighton, an enviornmental engineer and fellow postdoctoral researcher at SESYNC,
 
-This critical question impacts ecological outcomes in urban settings, human health, as well
-as the management of stormwater volumes!
 */
 
 ///load locations for stream gages
