@@ -36,22 +36,52 @@ Go through the lesson and explore, using visualization and printing where
 you need further clarification
 */
 
-//Load stream gage data
+//Load stream gage data from forested catchments.  All experienced forest loss during
+//the 2000-2018 study period
 var gagesites=ee.FeatureCollection('users/varshavijay101/GEEforSynthesis/gagesites')
 Map.addLayer(gagesites,{},'sites')
 
 
 /*
-We use Oxford MAP EVI, a global, gap filled monthly EVI estimate 
-///Select Mean EVI band from Image Collection
+We use Oxford MAP EVI, a global, gap filled monthly EVI estimate for 
+years 2000 to present to characterize the areas around the stream gage locations.
+
+Start by filtering the image collection to the appropriate band and 
+time range (consistent with Hansen Global Forest loss data).
+
+These data are provided at 5km spatial resolution 
+*/
 var meanevi = modisevi.select('Mean').filterDate('2000-01-01', '2018-12-01');
-////import samples and buffer(not necessary for polygon data)
+
+/*
+Apply a minimal buffer to point data to pull pixels around the gage site
+*/
 var applybuff = function(feature) {
   return feature.buffer(5000);  
 };
 
 var sitesbuff = sitesnudge.map(applybuff);
 Map.addLayer(sitesbuff,{color: 'FF0000'},'buffsites')
+
+/*
+Because we want to make sure we have some data on tree phenology for each site
+we check to make sure our buffered samples fall in locations within the catchment that were 
+deforested after year 2003, ensuring atleast 3 years of EVI data prior to deforestation.
+For our analysis we shifted these samples to other locations that fit this criteria but
+for the sake of simplicity we'll use the reduced sample set
+*/
+
+/*
+Load Hansen forest loss and extract mean loss year for each sample location
+*/
+var lossyear=hansen.select('lossyear')
+Map.addLayer(lossyear,{min:0,max:18},'lossyear')
+
+var sampleloss=lossyear
+.reduceRegions({
+  collection: sitesbuff
+  reducer: ee.Reducer.mean()
+})
 ///Visualization of some sample areas time series
 ////Chart Times series for samples// Create and print the chart.
 var sitesfirst10= sitesbuff.limit(5)
@@ -172,6 +202,3 @@ var compositeterraevi = ee.ImageCollection.fromImages(months.map(function(m) {
 //print(compositeterraevi)
 */
 
-////Lossyear
-var lossyear=hansen.select('lossyear')
-Map.addLayer(lossyear,{min:0,max:18},'lossyear')
