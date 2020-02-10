@@ -307,14 +307,12 @@ Map.addLayer(LSTfit.select('scale').clip(ROI), {min: -0.5, max: 0.5}, 'Scale')
 Great job! You should see some interesting trends in the variability of LST
 over time.
 Now, having completed this analysis we can export the processed Landsat LST
-to Google Drive for further statistical analysis
-
-Complete the code below
+to Google Drive for further statistical analysis and we are done.
 */
 
 Export.image.toDrive({
   image: LSTimg.clip(baltimore),
-  description: 'LST_Baltimore_Landsat8',
+  description: 'nameindrive',
   folder: 'foldername',
   region: baltimore,
   scale: 30,
