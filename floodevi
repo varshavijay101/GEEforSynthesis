@@ -124,6 +124,9 @@ Export.table.toDrive({
   fileFormat: 'CSV'
 });
 
+/*
+
+
 ///Global mean timing of max evi
 var months = ee.List.sequence(1, 12);
 var years = ee.List.sequence(2000, 2018);
