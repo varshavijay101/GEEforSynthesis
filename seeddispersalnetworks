@@ -212,31 +212,6 @@ Print the resulting dataset.  Note the object type! This is different
 than the output of reduceRegion.
 */
 
-/*
-Finally, export the data as a csv to your Google drive.
-Because the geometry column chews up unnecessary space we remove
-that in the export code using the select function.
-The last arguement to select is retainGeometry: "When false, the result will have a NULL geometry."
-This is incredibly useful to speed up and reduce size of the
-exported table
-*/
-
-Export.table.toDrive({
-  collection: networkmodBUFF.select([".*"],null,false),
-  description: 'networkmodbuff',
-  folder: 'Evan',
-  fileFormat:'CSV'
-});
-
-/*
-Nothing happens!  That is because you need to click the Tasks
-tab on the right and run the task.
-Download from Google Drive to ensure the expected output.
-
-At this stage we can finish and use these data for further
-statistical analysis. Continue below for some more 
-practice and to better understand the values we calculated
-*/
 
 /*
 We calculated mean gHM values for all sample regions.  Let's explore these values
@@ -264,18 +239,21 @@ Review the dataset to see how this information is stored.
 Add a group id to each sample in the group using a mapped function
 Use the .size() function to determine how many samples fall into these categories
 */
-
+//Modify this code for each oceanic and continental island types
 var name=name.filterMetadata('property','equals','field')//use this or ee.Filter.eq shown below
-.map(function(feature){return feature.set('group', 'string');});
+.map(function(feature){return feature.set('group', 'string');});//keep consistent grouping property name
+
 //identify non-island samples using boolean AND
 var nonisland=name
 .filter(ee.Filter.and(
     ee.Filter.eq('property', field),
     ee.Filter.eq('property', field)))
-
+.map(function(feature){return feature.set('group', 'string');});
 /*
-now rerun
+Combine into a single dataset using the merge() function
 */
+
+var groupedsamples= nonisland.merge(contisland).merge(nonisland)
 
 
 
@@ -285,7 +263,31 @@ Interesting! SE
 
 
 
+/*
+Finally, export the data as a csv to your Google drive.
+Because the geometry column chews up unnecessary space we remove
+that in the export code using the select function.
+The last arguement to select is retainGeometry: "When false, the result will have a NULL geometry."
+This is incredibly useful to speed up and reduce size of the
+exported table
+*/
 
+Export.table.toDrive({
+  collection: networkmodBUFF.select([".*"],null,false),
+  description: 'networkmodbuff',
+  folder: 'Evan',
+  fileFormat:'CSV'
+});
+
+/*
+Nothing happens!  That is because you need to click the Tasks
+tab on the right and run the task.
+Download from Google Drive to ensure the expected output.
+
+At this stage we can finish and use these data for further
+statistical analysis. Continue below for some more 
+practice and to better understand the values we calculated
+*/
 
 
 
