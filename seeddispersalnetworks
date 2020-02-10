@@ -234,7 +234,7 @@ tab on the right and run the task.
 Download from Google Drive to ensure the expected output.
 
 At this stage we can finish and use these data for further
-statistical analysis. If interested continue below for some more 
+statistical analysis. Continue below for some more 
 practice and to better understand the values we calculated
 */
 
@@ -247,9 +247,9 @@ print('gHM stats:', name.aggregate_stats('meanghi'));
 
 /*
 Evan found greater numbers of invasive species and interactions
-in oceanic islands. 
+in islands. 
 
-Is this caused by greater anthropogenic impacts in oceanic islands?
+Is there a relationship between this and anthropogenic impacts (gHM)?
 Using the ReduceRegion function determine whether oceanic islands 
 have greater mean gHM than non-island samples.  How does this compare
 to continental islands?
@@ -264,11 +264,20 @@ Use the .size() function to determine how many samples fall into these categorie
 */
 
 var name=name.filterMetadata('property','equals','field')
+//to identify non-island samples use two filterMetadata functions after another
 
 /*
 Use reduce region to produce estimates of mean gHM in oceanic islands, continental islands
 and other regions print and compare the means of each region
 */
+
+var name= ghm.reduceRegion({
+  geometry: name,
+  reducer: ee.Reducer.mean(),
+  scale:ghm.projection().nominalScale()
+  })
+
+print(name)
 
 
 
