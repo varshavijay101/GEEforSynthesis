@@ -6,6 +6,30 @@ var modisevi = ee.ImageCollection("Oxford/MAP/EVI_5km_Monthly"),
     aquaevi = ee.ImageCollection("MODIS/006/MYD13Q1"),
     geometry = /* color: #d63000 */ee.Geometry.Point([-10.690783599076667, 7.049440829723482]);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
+////////// Influence of Phenology on Runoff Response //////////////////
+///////////////////////to Forest Loss //////////////////////////
+ /*
+ 2020 Varsha Vijay GEEforSynthesis 
+ https://sites.google.com/view/geeforsynthesis
+ 
+*/
+
+//This case study comes from a collaboration with 
+//Dr. James Knighton.
+//Please read below for background.
+
+/*
+Dr. James Knighton  is trained in civil and environmental engineering 
+with a focus on water resources. She was a fellow postdoctoral researcher at SESYNC,
+currently at the British Geological Society. Tijana is focused on the critical problem
+of urban green infrastructure. Citing green infrastructure projects involves optimizing
+accros multiple goals to allow for multi-functionality. In Baltimore county, 
+where her study was focused, one of the goals
+of green infrastructure implementation is the reduction of urban heat island effects.
+
+This critical question impacts ecological outcomes in urban settings, human health, as well
+as the management of stormwater volumes!
+*/
 
 ///load locations for stream gages
 var sites=ee.FeatureCollection(gage,'geometry')
