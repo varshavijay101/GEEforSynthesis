@@ -140,14 +140,18 @@ var years = ee.List.sequence(2000, 2018);
 var meanevi=modisevi
   .filter(ee.Filter.calendarRange(2000,2016,'year'))
   .filter(ee.Filter.calendarRange(1,12,'month'))
-  .sort('system:time_start')
-  .select("Mean")
+  .sort('system:time_start')//sort using the image aquisition date so that months are in order
+  .select("Mean");//stores mean monthly MODIS EVI estimate
+
+/*
+The function below is used to make amore interpretable "month" band with 
+
 var add_bands = function(image) {
   image = ee.Image(image);
   return image.addBands(ee.Image.constant(ee.Number.parse(image.date().format("M"))).rename('month').float());
 };
 
-var meanevi = meanevi.map(add_bands)
+meanevi = meanevi.map(add_bands)
 print(meanevi,'meanevi')
 var maxmonthbyyear = ee.ImageCollection.fromImages(
       years.map(function (y) {
@@ -163,19 +167,16 @@ var maxmonth=maxmonthbyyear.select('month')
 var modemaxevimonth=maxmonth.mode()
 print(modemaxevimonth)
 
-Map.addLayer(modemaxevimonth)
+Map.addLayer(modemaxevimonth,{},'modemaxevimonth')
 print(modemaxevimonth.projection().nominalScale)
-//Export global image data
+//Export region for global image data
 var unboundedGeo = ee.Geometry.Polygon([-180, 88, 0, 88, 180, 88, 180, -88, 0, -88, -180, -88], null, false);
 
 Export.image.toDrive({
   image: modemaxevimonth, 
   description: 'modemaxevimonth',
   region: unboundedGeo,
-  //scale: ,
   crs: 'EPSG:4326',
-  //crsTransform: [0.0083333333334, 0, -180, 0, -0.0083333333334, 90.00000000144001],
-  //dimensions: '43200x21600',
   maxPixels: 1e13
 });
 
