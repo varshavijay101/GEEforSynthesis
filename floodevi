@@ -134,25 +134,36 @@ and observed changes in runoff.  Based on the stream gage level findings we want
 to calculate the most common month for max EVI globally. This is done using the following set of functions
 */
 
-var months = ee.List.sequence(1, 12);
-var years = ee.List.sequence(2000, 2018);
-///refilter collection for ease of code
-var meanevi=modisevi
-  .filter(ee.Filter.calendarRange(2000,2016,'year'))
-  .filter(ee.Filter.calendarRange(1,12,'month'))
-  .sort('system:time_start')//sort using the image aquisition date so that months are in order
-  .select("Mean");//stores mean monthly MODIS EVI estimate
+var months = ee.List.sequence(1, 12);//create list of month values
+var years = ee.List.sequence(2000, 2016);//create list of year values
+
+///sort image collection by image collection date
+meanevi=meanevi.sort('system:time_start')
 
 /*
-The function below is used to make amore interpretable "month" band with 
+The function below is used to make a more interpretable "month" band with
+float type
+*/
 
 var add_bands = function(image) {
   image = ee.Image(image);
   return image.addBands(ee.Image.constant(ee.Number.parse(image.date().format("M"))).rename('month').float());
 };
 
-meanevi = meanevi.map(add_bands)
+meanevi = meanevi.map(add_bands)//Map on image collection 
+//this could be combined with previous function but is expanded here for clarity
+
+/*
+When we print the image collection we should see that each image has two bands
+one called Mean and one called month
+*/
 print(meanevi,'meanevi')
+
+/*
+Now the function below contains a function which returns a new image collection from
+the image collection meanevi. In it for each year we calculate the month with the highest
+EVI value for each pixel.  This results in an image collection of 
+
 var maxmonthbyyear = ee.ImageCollection.fromImages(
       years.map(function (y) {
         return meanevi.filter(ee.Filter.calendarRange(y, y, 'year'))
