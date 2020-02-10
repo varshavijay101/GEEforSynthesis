@@ -84,12 +84,7 @@ cloud cover.
     //.first()
 //);
 
-var image2 = ee.Image(
-  l8raw.filterBounds(baltimore)
-    .filterDate('2018-07-01', '2018-7-31')
-    .sort('CLOUD_COVER')
-    .first()
-);
+
 var new_toa_radiance = geet.toa_radiance(image2, 10);
 print(new_toa_radiance)
 var brightness_temp_img = geet.brightness_temp_l8c(new_toa_radiance, true);
@@ -187,6 +182,16 @@ Finally, lets validate our LST estimates by comparing to the
 MOD11A2.006 Terra Land Surface Temperature and Emissivity 8-Day Global 1km
 Search for the imagecollection and add to code editor.
 
+Filter for the study region and date close to the aquisition date 
+of the Landsat image we used (July 8, 2018)
+*/
+
+var name = ee.Image(
+  name
+  .filterDate('2018-07-01', '2018-7-14')
+);
+
+/*
 These data are much coarser resolution than our estimate from landsat.
 Compare spatial resolutions of our calculated Landsat dataset and this MODIS
 dataset using the projection().nominalScale() function
@@ -196,12 +201,15 @@ the other data in the data catalog.  We wont worry about that here but
 it is important to think about*
 */
 
+
 print(name.first().projection().nominalScale())//Fill with Modis Image Collection
 print(name.projection().nominalScale())//Landsat LST
 
 /*
 Based on the difference in spatial resolution we expect differences in LST
-estimates between the two datasets.
+estimates between the two datasets. But what we are looking for here is a gut
+check on the values we calculated.
+/
 
 
 explore temporal trends in land surface temperature in
