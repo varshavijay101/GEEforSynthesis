@@ -233,16 +233,12 @@ Nothing happens!  That is because you need to click the Tasks
 tab on the right and run the task.
 Download from Google Drive to ensure the expected output.
 */
-///////////////////////Bonus Section in Development////////////////////////////////
 
 /*
-At this stage I exported this results for statistical analyses in R.
-However for additional practice lets do some more filtering and reducing.
-
 Evan found greater numbers of invasive species and interactions
 in oceanic islands. 
 
-Do oceanic islands tend to have greater anthropogenic impacts?
+Is this driven by greater anthropogenic impacts in oceanic islands?
 Using the ReduceRegion function determine whether oceanic islands 
 have greater mean gHM than all samples.  How does this compare
 to continental islands?
@@ -251,38 +247,18 @@ to continental islands?
 
 /*
 Use the filterMetadata function to identify oceanic islands and continental islands
-Review the original dataset to see how this information is stored
+Review the original dataset to see how this information is stored.
+Use the .size() function to determine how many samples fall into these categories
 */
 
+var name=name.filterMetadata('property','equals','field')
+
+/*
 
 
 
-///////////////Add Biome/Ecoregion for each sample location
-///Load Feature Collection
-var ecoregions2017=ee.FeatureCollection(Ecoregions2017)//be explict in object type
-Map.addLayer(ecoregions2017,{},'ecoregions2017')
-//var biomes2017=ecoregions2017.select('BIOME_NAME')
-//var biomes17=ee.FeatureCollection(biomes17)
-//print(biomes2017.first())
 
-///Create nested function to iterate and pull biome names from dataset
-var networkbiomes = ecoregions2017.map(function(feature){
-  feature = ee.Feature(feature);
-  var biomename = feature.get('BIOME_NAME');
-  var networkfilter = networks.filterBounds(feature.geometry()).map(function(network){
-    return ee.Feature(network).set('biome', biomename);
-  });
-  return networkfilter;
-}).flatten();
 
-print(networkbiomes.first())
-Map.addLayer(networkbiomes,{},'networkbiomes')
 
-//Export tables
-//Export table to V's drive
-Export.table.toDrive({
-  collection: networkbiomes,
-  description: 'networkbiomes',
-  folder: 'Evan',
-  fileFormat:'CSV'
-});
+
+
