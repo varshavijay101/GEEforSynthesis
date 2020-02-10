@@ -229,10 +229,11 @@ Based on the difference in spatial resolution we expect differences in LST
 estimates between the two datasets. But what we are looking for here is a gut
 check on the values we calculated.
 Add the MODIS LST estimate to the map using the same palette visualization.
-Use 
+Use the Inspector tab on the right to click and compare values.
+*/
 
+Map.addLayer(name, {palette: ['blue', 'yellow', 'red']},"name");
 
-/
 
 
 explore temporal trends in land surface temperature in
