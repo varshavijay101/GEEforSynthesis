@@ -1,18 +1,7 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var l8raw = ee.ImageCollection("LANDSAT/LC08/C01/T1"),
-    baltimore = 
-    /* color: #d63000 */
-    /* displayProperties: [
-      {
-        "type": "rectangle"
-      }
-    ] */
-    ee.Geometry.Polygon(
-        [[[-77.02304685972433, 39.622709223317614],
-          [-77.02304685972433, 39.206813691422255],
-          [-76.29794920347433, 39.206813691422255],
-          [-76.29794920347433, 39.622709223317614]]], null, false),
-    image = ee.Image("OpenLandMap/CLM/CLM_LST_MOD11A2-DAY_M/v01");
+    image = ee.Image("OpenLandMap/CLM/CLM_LST_MOD11A2-DAY_M/v01"),
+    baltimore = ee.FeatureCollection("users/varshavijay101/GEEforSynthesis/BaltimoreCity_100Buffer");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 ////////// Case Study: Land Surface Temperature //////////////////
 /////////////////// in Baltimore county //////////////////////////
@@ -27,7 +16,7 @@ var l8raw = ee.ImageCollection("LANDSAT/LC08/C01/T1"),
 //Please read below for background.
 
 /*
-Dr. Tijana Jovanovic, is trained in civil and environmental engineering 
+Dr. Tijana Jovanovic is trained in civil and environmental engineering 
 with a focus on water resources. She was a fellow postdoctoral researcher at SESYNC,
 currently at the British Geological Society. Tijana is focused on the critical problem
 of urban green infrastructure. Citing green infrastructure projects involves optimizing
@@ -66,6 +55,7 @@ Baltimore. Draw an area including the surrounding areas
 to better approximate the county of Baltimore.
 Name geometry object.
 */
+
 
 /*
 Now begin processing imagery from the raw Landsat image collection
@@ -332,7 +322,6 @@ Export.image.toDrive({
   scale: 30,
   crs: 'EPSG:4326',
   maxPixels: 1e10});
-
 
 
 
