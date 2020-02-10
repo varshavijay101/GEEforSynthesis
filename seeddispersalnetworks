@@ -261,12 +261,13 @@ Use the filterMetadata function on the gHM dataset for network samples
 (referenced above in the export and aggregate_stats call)
 to identify oceanic islands, continental islands and non-island samples.
 Review the dataset to see how this information is stored.
+Add a group id to each sample in the group using a mapped function
 Use the .size() function to determine how many samples fall into these categories
 */
 
 var name=name.filterMetadata('property','equals','field')//use this or ee.Filter.eq shown below
+.map(function(feature){return feature.set('group', 'string');});
 //identify non-island samples using boolean AND
-
 var nonisland=name
 .filter(ee.Filter.eq('property','field'))
 .filter(ee.Filter.and(ee.Filter.eq('property','field')))
@@ -276,13 +277,7 @@ Use reduce region to produce estimates of mean gHM in oceanic islands, continent
 and other regions print and compare the means of each region
 */
 
-var name= ghm.reduceRegion({
-  geometry: name,
-  reducer: ee.Reducer.mean(),
-  scale:ghm.projection().nominalScale()
-  })
 
-print(name)
 
 /*
 Interesting! SE
