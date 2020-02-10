@@ -37,21 +37,22 @@ you need further clarification
 */
 
 //Load stream gage data from forested catchments.  All experienced forest loss during
-//the 2000-2018 study period
+//the 2001-2018 study period but are assumed to be forested 
+//in year 2000
 var gagesites=ee.FeatureCollection('users/varshavijay101/GEEforSynthesis/gagesites')
 Map.addLayer(gagesites,{},'sites')
 
 
 /*
 We use Oxford MAP EVI, a global, gap filled monthly EVI estimate for 
-years 2000 to present to characterize the areas around the stream gage locations.
+years 2000 to 2015 to characterize the areas around the stream gage locations.
 
 Start by filtering the image collection to the appropriate band and 
 time range (consistent with Hansen Global Forest loss data).
 
 These data are provided at 5km spatial resolution 
 */
-var meanevi = modisevi.select('Mean').filterDate('2000-01-01', '2018-12-01');
+var meanevi = modisevi.select('Mean').filterDate('2000-01-01', '2015-12-01');
 
 /*
 Apply a minimal buffer to point data to pull pixels around the gage site
@@ -60,35 +61,35 @@ var applybuff = function(feature) {
   return feature.buffer(5000);  
 };
 
-var sitesbuff = sitesnudge.map(applybuff);
+var sitesbuff = gagesites.map(applybuff);
 Map.addLayer(sitesbuff,{color: 'FF0000'},'buffsites')
 
 /*
-Because we want to make sure we have some data on tree phenology for each site
-we check to make sure our buffered samples fall in locations within the catchment that were 
-deforested after year 2003, ensuring atleast 3 years of EVI data prior to deforestation.
-For our analysis we shifted these samples to other locations that fit this criteria but
-for the sake of simplicity we'll use the reduced sample set
+We begin with a visualization of sample EVI time series on a chart plotting
+the first five samples in our dataset which are all located in Brazil.
+
+We will also add these samples to the Map just as a reminder of where they
+occur geographically
 */
+var sitesfirst5= sitesbuff.limit(5)
+Map.centerObject(sitesfirst5)
+Map.addLayer(sitesfirst5,{color: '0000FF'},'Brazilsites')
+print(ui.Chart.image.seriesByRegion(meanevi, sitesfirst5, ee.Reducer.mean(),'Mean',5000))
 
 /*
-Load Hansen forest loss and extract mean loss year for each sample location
+There's a lot of years on that chart, making it difficult to understand, so let
+us first filter the data to just year 2014
 */
-var lossyear=hansen.select('lossyear')
-Map.addLayer(lossyear,{min:0,max:18},'lossyear')
+print(ui.Chart.image.seriesByRegion(meanevi.filterDate('2014-01-01', '2015-12-01'), sitesfirst5, ee.Reducer.mean(),'Mean',5000))
+print('Brazilsamples',sitesfirst5)
 
-var sampleloss=lossyear
-.reduceRegions({
-  collection: sitesbuff
-  reducer: ee.Reducer.mean()
-})
-///Visualization of some sample areas time series
-////Chart Times series for samples// Create and print the chart.
-var sitesfirst10= sitesbuff.limit(5)
-print(ui.Chart.image.seriesByRegion(meanevi, sitesfirst10, ee.Reducer.mean(),'Mean',5000))
-//.setChartType('ScatterChart'));
+/*
+Interestingly within our Brazil samples we different phenology captured by our EVI
+time series
 
-///
+To understand these temporal trends in EVI further, we extract time series for all
+our sample locations
+*/
 
 var gageevi = meanevi.map(function(image) {
   return image.reduceRegions({
@@ -200,5 +201,37 @@ var compositeterraevi = ee.ImageCollection.fromImages(months.map(function(m) {
 }));
 
 //print(compositeterraevi)
+*/
+
+/*
+In the original analysis the primary deforestation date 
+(found in the Forest_Los property of each site) was determined using the total
+catchment area, but for the sake of our analysis lets determine the most frequent
+deforestation date for pixels within each of our sample regions.
+*/
+
+/*
+Load Hansen forest loss and extract mean loss year for 
+deforested pixels in each sample location
+*/
+var lossyear=hansen.select('lossyear')
+var lossyearmask=lossyear.mask(lossyear.gt(0))
+Map.addLayer(lossyearmask)
+//Map.addLayer(lossyear,{min:1,max:18},'lossyear')
+
+var sampleloss=lossyearmask
+.reduceRegions({
+  collection: sitesbuff,
+  reducer: ee.Reducer.mode().unweighted(),
+  scale: 30,
+})
+
+print(sampleloss)
+
+/*
+Printing these data show that there is some discrepancy between the value 
+determined for the catchment area vs the sample area.  This is probably
+fine for the sake of our analysis but its good to keep in mind when we
+further process the data.
 */
 
