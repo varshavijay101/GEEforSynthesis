@@ -167,7 +167,7 @@ this.  Use the select function to get the NDVI band from the l8_ndvi image.
 Visualize in Map.
 */
 
-var name = surfTemp_img.select(bandname);
+var name = l8_ndvi.select(bandname);
 Map.addLayer(name)
 
 /*
@@ -234,25 +234,27 @@ Use the Inspector tab on the right to click and compare values.
 
 Map.addLayer(name, {palette: ['blue', 'yellow', 'red']},"name");
 
-
-
-explore temporal trends in land surface temperature in
-the east coast using another land surface temperature datastet. 
-
-
-
-
+/*
+These values seem to be in broad agreement.  In later lessons we will use charts
+to look at the correllation between values in our study region but for now 
+we can agree that we have verified the Landsat LST data we produced
 */
 
+/*
+Finally we'll do something super fun!
+We will explore temporal trends in land surface temperature in
+the east coast using the MODIS LST image collection
+*/
 
 /*
 We use the following function to add a time band 
-and rescale values from milliseconds
+and rescale milliseconds time values
 */
 
 var createTimeBand = function(image) {
    return image.addBands(image.metadata('system:time_start').divide(1e18));
 };
+
 
 
 
