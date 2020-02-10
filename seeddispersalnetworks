@@ -238,15 +238,16 @@ Download from Google Drive to ensure the expected output.
 Evan found greater numbers of invasive species and interactions
 in oceanic islands. 
 
-Is this driven by greater anthropogenic impacts in oceanic islands?
+Is this caused by greater anthropogenic impacts in oceanic islands?
 Using the ReduceRegion function determine whether oceanic islands 
-have greater mean gHM than all samples.  How does this compare
+have greater mean gHM than non-island samples.  How does this compare
 to continental islands?
 */
 
 
 /*
 Use the filterMetadata function to identify oceanic islands and continental islands
+and other areas.
 Review the original dataset to see how this information is stored.
 Use the .size() function to determine how many samples fall into these categories
 */
@@ -254,6 +255,8 @@ Use the .size() function to determine how many samples fall into these categorie
 var name=name.filterMetadata('property','equals','field')
 
 /*
+Use reduce region to produce estimates of mean gHM in oceanic islands, continental islands
+print and compare to the overall mean 
 
 
 
