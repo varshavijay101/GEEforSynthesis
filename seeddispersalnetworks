@@ -257,14 +257,15 @@ to continental islands?
 
 
 /*
-Use the filterMetadata function to identify oceanic islands and continental islands
-and other areas.
-Review the original dataset to see how this information is stored.
+Use the filterMetadata function on the gHM dataset for network samples
+(referenced above in the export and aggregate_stats call)
+to identify oceanic islands, continental islands and non-island samples.
+Review the dataset to see how this information is stored.
 Use the .size() function to determine how many samples fall into these categories
 */
 
 var name=name.filterMetadata('property','equals','field')
-//to identify non-island samples use two filterMetadata functions after another
+//identifying non-island samples may require two filterMetadata calls
 
 /*
 Use reduce region to produce estimates of mean gHM in oceanic islands, continental islands
@@ -278,6 +279,9 @@ var name= ghm.reduceRegion({
   })
 
 print(name)
+
+/*
+Interesting! SE
 
 
 
