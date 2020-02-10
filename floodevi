@@ -1,0 +1,146 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var modisevi = ee.ImageCollection("Oxford/MAP/EVI_5km_Monthly"),
+    gage = ee.FeatureCollection("users/varshavijay101/jamesgagesites"),
+    hansen = ee.Image("UMD/hansen/global_forest_change_2018_v1_6"),
+    terraevi = ee.ImageCollection("MODIS/006/MOD13Q1"),
+    aquaevi = ee.ImageCollection("MODIS/006/MYD13Q1"),
+    geometry = /* color: #d63000 */ee.Geometry.Point([-10.690783599076667, 7.049440829723482]);
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+
+///load locations for stream gages
+var sites=ee.FeatureCollection(gage,'geometry')
+var sitesnudge=ee.FeatureCollection('users/jok8/Sites_Nudged_112019')
+Map.addLayer(sites,{},'sites')
+print(sites.limit(2))
+////Lossyear
+var lossyear=hansen.select('lossyear')
+Map.addLayer(lossyear,{min:0,max:18},'lossyear')
+/////Time series charting for EVI
+///Select Mean EVI band from Image Collection
+var meanevi = modisevi.select('Mean').filterDate('2000-01-01', '2018-12-01');
+////import samples and buffer(not necessary for polygon data)
+var applybuff = function(feature) {
+  return feature.buffer(5000);  
+};
+
+var sitesbuff = sitesnudge.map(applybuff);
+Map.addLayer(sitesbuff,{color: 'FF0000'},'buffsites')
+///Visualization of some sample areas time series
+////Chart Times series for samples// Create and print the chart.
+var sitesfirst10= sitesbuff.limit(5)
+print(ui.Chart.image.seriesByRegion(meanevi, sitesfirst10, ee.Reducer.mean(),'Mean',5000))
+//.setChartType('ScatterChart'));
+
+///
+
+var gageevi = meanevi.map(function(image) {
+  return image.reduceRegions({
+    collection: sitesbuff,
+    reducer: ee.Reducer.mean().setOutputs(image.bandNames()),
+    scale: 5000,
+  })
+  .filter(ee.Filter.neq('Mean', null))
+ .map(function(feature) {
+    return feature.set({
+      'ID': image.id(),
+    });});
+}).flatten();
+print(meanevi.first())
+print(gageevi.first())
+
+var nullgeom= function(feature){
+  feature = feature.setGeometry(null)
+  return (feature)}
+  
+var gageeviNULL=  gageevi.map(nullgeom)
+print(gageeviNULL.first())
+
+Export.table.toDrive({
+  collection: gageeviNULL,
+  description: 'evitimeseries',
+  fileFormat: 'CSV'
+});
+
+///Global mean timing of max evi
+var months = ee.List.sequence(1, 12);
+var years = ee.List.sequence(2000, 2018);
+///refilter collection for ease of code
+var meanevi=modisevi
+  .filter(ee.Filter.calendarRange(2000,2018,'year'))
+  .filter(ee.Filter.calendarRange(1,12,'month'))
+  .sort('system:time_start')
+  // .filterBounds(ROI)
+  .select("Mean")
+var add_bands = function(image) {
+  image = ee.Image(image);
+  return image.addBands(ee.Image.constant(ee.Number.parse(image.date().format("M"))).rename('month').float());
+};
+
+var meanevi = meanevi.map(add_bands)
+print(meanevi,'meanevi')
+var maxmonthbyyear = ee.ImageCollection.fromImages(
+      years.map(function (y) {
+        return meanevi.filter(ee.Filter.calendarRange(y, y, 'year'))
+                    .qualityMosaic('Mean')//.select('month')
+                    .set('year', y)
+                    //.map(add_bands);
+}));
+print(maxmonthbyyear);
+
+var maxmonth=maxmonthbyyear.select('month')
+
+var modemaxevimonth=maxmonth.mode()
+print(modemaxevimonth)
+
+Map.addLayer(modemaxevimonth)
+//print(modemaxevimonth.projection().nominalScale)
+//Export global image data
+var unboundedGeo = ee.Geometry.Polygon([-180, 88, 0, 88, 180, 88, 180, -88, 0, -88, -180, -88], null, false);
+
+Export.image.toDrive({
+  image: modemaxevimonth, 
+  description: 'modemaxevimonth',
+  region: unboundedGeo,
+  //scale: ,
+  crs: 'EPSG:4326',
+  //crsTransform: [0.0083333333334, 0, -180, 0, -0.0083333333334, 90.00000000144001],
+  //dimensions: '43200x21600',
+  maxPixels: 1e13
+});
+
+
+//var maxevimonth = meanevi.qualityMosaic('Mean').select('month');
+//print(maxevimonth,'max')
+/*
+var byYear = ee.ImageCollection.fromImages(
+  years.map(function(y) {
+      return meanevi
+        .filter(ee.Filter.neq('Mean', null))
+        .filter(ee.Filter.calendarRange(y, y, 'year'))
+        .max()
+        .set('date', ).set('year', y);
+  });
+}).flatten());
+
+print(byMonthYear)
+print(meanevi)
+/*
+///////Other data processing...ignore
+///Adjust the scale of EVI input data and create monthly composites
+var terrevi=ee.ImageCollection(terraevi).select('EVI')
+//print(terrevi.first())
+var aqevi=ee.ImageCollection(aquaevi).select('EVI')
+var months = ee.List.sequence(1, 12);
+
+var compositeterraevi = ee.ImageCollection.fromImages(months.map(function(m) {
+  var filtered = terrevi.filter(ee.Filter.calendarRange({
+    start: m,
+    field: 'month'
+  }));
+  var median = filtered.ee.Reducer.median();
+  return median
+      .set('month', m);
+}));
+
+//print(compositeterraevi)
+*/
