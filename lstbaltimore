@@ -182,13 +182,35 @@ Finally, lets validate our LST estimates by comparing to the
 MOD11A2.006 Terra Land Surface Temperature and Emissivity 8-Day Global 1km
 Search for the imagecollection and add to code editor.
 
-Filter for the study region and date close to the aquisition date 
-of the Landsat image we used (July 8, 2018)
+We are only interested in LST so use the .select function to get the
+LST_Day_1km band
+
+MODIS LST values are scaled and stored in degrees K so we need to convert
+to C to interpret the values
+*/
+
+var name = name.
+
+var modLSTc = modLSTday.map(function(img) {
+  return img
+    .multiply(0.02)
+    .subtract(273.15)
+    .copyProperties(img, ['system:time_start']);
+});
+
+
+/*
+Filter for a date close to the aquisition date 
+of the Landsat image we used (July 8, 2018).
+We are not filtering by our study region because 
+each image is stored as a global image.  
+Use clip() to restrict to only pixels in the study region
 */
 
 var name = ee.Image(
   name
   .filterDate('2018-07-10', '2018-7-14')
+  .first()
 );
 
 /*
@@ -201,7 +223,6 @@ the other data in the data catalog.  We wont worry about that here but
 it is important to think about*
 */
 
-
 print(name.first().projection().nominalScale())//Fill with Modis Image Collection
 print(name.projection().nominalScale())//Landsat LST
 
@@ -209,6 +230,9 @@ print(name.projection().nominalScale())//Landsat LST
 Based on the difference in spatial resolution we expect differences in LST
 estimates between the two datasets. But what we are looking for here is a gut
 check on the values we calculated.
+
+
+
 /
 
 
