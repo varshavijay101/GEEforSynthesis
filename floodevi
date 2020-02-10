@@ -20,7 +20,8 @@ var modisevi = ee.ImageCollection("Oxford/MAP/EVI_5km_Monthly"),
 
 /*
 Dr. James Knighton, an enviornmental engineer and fellow postdoctoral researcher at SESYNC,
-is investigating hydrologic responses to forest cover loss.  One of the hypotheses we investigate
+is investigating hydrologic responses to forest cover loss.  Using global stream gage data,
+estimates of 
 
 */
 
