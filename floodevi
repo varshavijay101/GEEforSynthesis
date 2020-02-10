@@ -88,7 +88,10 @@ Interestingly within our Brazil samples we different phenology captured by our E
 time series
 
 To understand these temporal trends in EVI further, we extract time series for all
-our sample locations
+our sample locations. This becomes a little complicated but is just the extension
+of the application of mapped functions we were using before.  In this case we are mapping 
+over all the images in the meanevi image collection, and assigning the Mean EVI value for 
+that image to the feature (excluding null values). Then
 */
 
 var gageevi = meanevi.map(function(image) {
@@ -104,7 +107,7 @@ var gageevi = meanevi.map(function(image) {
     });});
 }).flatten();
 print(meanevi.first())
-print(gageevi.first())
+print(gageevi.limit(10))
 
 var nullgeom= function(feature){
   feature = feature.setGeometry(null)
