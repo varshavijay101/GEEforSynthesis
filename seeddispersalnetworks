@@ -239,7 +239,11 @@ practice and to better understand the values we calculated
 */
 
 /*
+We calculated mean gHM values for all sample regions.  Let's explore these values
+using the aggregate_stats function
+*/
 
+print('gHM stats:', name.aggregate_stats('meanghi'));
 
 /*
 Evan found greater numbers of invasive species and interactions
@@ -263,7 +267,7 @@ var name=name.filterMetadata('property','equals','field')
 
 /*
 Use reduce region to produce estimates of mean gHM in oceanic islands, continental islands
-print and compare the means of each region
+and other regions print and compare the means of each region
 */
 
 
