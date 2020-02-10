@@ -69,10 +69,12 @@ Name geometry object.
 
 /*
 Now begin processing imagery from the raw Landsat image collection
-by first filtering to the least cloudy image for Summer 2018 (May-August).  
-This date corresponds to the collection date for 
-other data used in Tijana's study.
-See below for a start on this.
+by first filtering to the least cloudy image for July 2018.
+July typically contains the hottest days of the year as shown in this
+National Climate Data Center analysis.
+https://www.ncdc.noaa.gov/news/warmest-day-of-the-year
+See below for script to filter the image collection by time and
+cloud cover.
 */
 
 //var image2 = ee.Image(
@@ -114,7 +116,6 @@ and bands 10 and 11 for thermal infared wavelegths.
 
 For this study we want to understand heat so we use the thermal infared
 in addition to the other bands to calculate land surface temperature
-
 */
 
 
@@ -182,21 +183,38 @@ Great job! That makes sense.
 */
 
 /*
-Finally, lets explore temporal trends in land surface temperature in
-Baltmore using another land surface temperature datastet. 
-Search for the MOD11A2.006 Terra Land Surface Temperature and Emissivity 8-Day Global 1km
-dataset and add to code editor.
+Finally, lets validate our LST estimates by comparing to the
+MOD11A2.006 Terra Land Surface Temperature and Emissivity 8-Day Global 1km
+Search for the imagecollection and add to code editor.
+
+These data are much coarser resolution than our estimate from landsat.
+Compare spatial resolutions of our calculated Landsat dataset and this MODIS
+dataset using the projection().nominalScale()
+
+*Note MODIS data are in a
 */
+
+
+
+
+explore temporal trends in land surface temperature in
+the east coast using another land surface temperature datastet. 
+
+
+
+
+*/
+
 
 /*
 We use the following function to add a time band 
 and rescale values from milliseconds
-for each image in the image collection
 */
 
 var createTimeBand = function(image) {
    return image.addBands(image.metadata('system:time_start').divide(1e18));
 };
+
 
 
 
