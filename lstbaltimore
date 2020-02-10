@@ -189,15 +189,13 @@ MODIS LST values are scaled and stored in degrees K so we need to convert
 to C to interpret the values
 */
 
-var name = name.
+var name = name.select(bandname)
 
-var modLSTc = modLSTday.map(function(img) {
+var modLSTc = name.map(function(img) {
   return img
     .multiply(0.02)
-    .subtract(273.15)
-    .copyProperties(img, ['system:time_start']);
+    .subtract(273.15);
 });
-
 
 /*
 Filter for a date close to the aquisition date 
