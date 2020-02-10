@@ -269,12 +269,12 @@ var name=name.filterMetadata('property','equals','field')//use this or ee.Filter
 .map(function(feature){return feature.set('group', 'string');});
 //identify non-island samples using boolean AND
 var nonisland=name
-.filter(ee.Filter.eq('property','field'))
-.filter(ee.Filter.and(ee.Filter.eq('property','field')))
+.filter(ee.Filter.and(
+    ee.Filter.eq('property', field),
+    ee.Filter.eq('property', field)))
 
 /*
-Now let's create a chart showing distribution of gHM by group id.
-
+now rerun
 */
 
 
