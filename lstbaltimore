@@ -49,13 +49,11 @@ Once added we call functions in the library using the require() function.
 var geet = require('users/elacerda/geet:geet'); 
 
 /*
-We also need to define the study area. As we did in a 
-previous lesson, draw a the study area around the city of
-Baltimore. Draw an area including the surrounding areas
-to better approximate the county of Baltimore.
-Name geometry object.
+We also need to define the study area.
+To save some time I have shared a feature collection asset with you
 */
 
+var baltimore = ee.FeatureCollection('users/varshavijay101/GEEforSynthesis/BaltimoreCity_100Buffer')
 
 /*
 Now begin processing imagery from the raw Landsat image collection
