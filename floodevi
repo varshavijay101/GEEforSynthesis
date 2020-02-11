@@ -149,7 +149,7 @@ var add_bands = function(image) {
   image = ee.Image(image);
   return image.addBands(ee.Image.constant(ee.Number.parse(image.date()
   .format("M"))).rename('month').float()
-   .reproject(meanevi.projection()));
+   .reproject(meanevi.first().projection()));
 };
 
 var meanevimap = meanevi.map(add_bands)//Map on image collection 
@@ -172,7 +172,8 @@ var maxmonthbyyear = ee.ImageCollection.fromImages(
       years.map(function (y) {
         return meanevimap.filter(ee.Filter.calendarRange(y, y, 'year'))
                     .qualityMosaic('Mean')
-                    .set('year', y);
+                    .set('year', y)
+                    .reproject(meanevi.first().projection());
 }));
 
 
