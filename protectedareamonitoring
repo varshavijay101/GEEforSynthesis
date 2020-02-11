@@ -10,5 +10,26 @@ var imageCollection = ee.ImageCollection("MODIS/006/MCD12Q1"),
  
 */
 
+//This case study comes my research in collaboration
+//with colleagues in the US and India.
+//Please read below for background.
+
+/*
+One of my overarching research interests is the impact of anthropogenic
+impacts on species and habitat loss. I have investigated this question at
+varying spatiotemporal scales and extents.  For this case study I want to
+focus on two contiguous protected areas in India and Bhutan: Manas National Park
+and Royal Manas National park respectively. Both areas are highly biodiverse, with 
+a number of charismatic and threatened species. To adequately manage the parks
+to ensure conservation outcomes we quantify land use change patterns.
+
+In conjunction with information on management practice and anthropgenic pressures
+these data can be used to inform monitoring and management plans.
+*/
+
+/*
+We first identify the two parks of interest from the WDPA dataset 
+(already imported in the code editor) 
+
 
 var manas=wdpa.
