@@ -147,17 +147,20 @@ float type
 
 var add_bands = function(image) {
   image = ee.Image(image);
-  return image.addBands(ee.Image.constant(ee.Number.parse(image.date().format("M"))).rename('month').float());
+  return image.addBands(ee.Image.constant(ee.Number.parse(image.date()
+  .format("M"))).rename('month').float()
+   .reproject(meanevi.projection()));
 };
 
-meanevimap = meanevi.map(add_bands)//Map on image collection 
+var meanevimap = meanevi.map(add_bands)//Map on image collection 
 //this could be combined with previous function but is expanded here for clarity
 
 /*
 When we print the image collection we should see that each image has two bands
 one called Mean and one called month
 */
-print(meanevi,'meanevi')
+
+print('meanevimap',meanevimap)
 
 /*
 Now the function below contains a function which returns a new image collection from
@@ -167,7 +170,7 @@ EVI value for each pixel.  This results in an image collection with an image for
 
 var maxmonthbyyear = ee.ImageCollection.fromImages(
       years.map(function (y) {
-        return meanevi.filter(ee.Filter.calendarRange(y, y, 'year'))
+        return meanevimap.filter(ee.Filter.calendarRange(y, y, 'year'))
                     .qualityMosaic('Mean')
                     .set('year', y);
 }));
@@ -180,14 +183,17 @@ For this particular analysis we were interested in the most common month to find
 so we select only the 'month' band from the image collection and reduce the image collection to
 a single image collection using the mode() function
 */
+
 var maxmonth=maxmonthbyyear.select('month')
 var modemaxevimonth=maxmonth.mode()
 print(modemaxevimonth)
 
 Map.addLayer(modemaxevimonth,{},'modemaxevimonth')
-print(meanevi.first().select('Mean').projection().nominalScale())
-print(meanevimap.first().select('Mean').projection().nominalScale())
-print(maxmonthbyyear.first().select('month').projection().nominalScale())
+//print("meanevi",meanevi.first().select('month').projection().nominalScale())
+print("meanevimap",meanevimap.first().select('month').projection().nominalScale())
+print("meanevimap",meanevimap.first().select('month').projection())
+
+print("maxmonthbyyear",maxmonthbyyear.first().select('Mean').projection().nominalScale())
 print(modemaxevimonth.projection().nominalScale())
 //Export region for global image data
 var unboundedGeo = ee.Geometry.Polygon([-180, 88, 0, 88, 180, 88, 180, -88, 0, -88, -180, -88], null, false);
