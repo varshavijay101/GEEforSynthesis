@@ -129,9 +129,10 @@ Export.table.toDrive({
 
 /*
 Using the stream gage data we found a relationship between EVI 
-(specifically phase shift, defined as the difference between the timing of max precipitation and max EVI)
-and observed changes in runoff.  Based on the stream gage level findings we wanted
-to calculate the most common month for max EVI globally. This is done using the following set of functions
+(specifically phase shift, defined as the difference between the timing of
+max precipitation and max EVI) and observed changes in runoff.  
+Based on the stream gage level findings we wanted to calculate the most common 
+month for max EVI globally. This is done using the following set of functions
 */
 
 var months = ee.List.sequence(1, 12);//create list of month values
@@ -162,12 +163,13 @@ one called Mean and one called month
 print('meanevimap',meanevimap)
 
 /*
-Now the function below contains a function which returns a new image collection from
-the image collection meanevi. In it for each year we calculate the month with the highest
-EVI value for each pixel.  
+Now the function below contains a function which returns a new image collection 
+from the image collection meanevi. In it for each year we calculate the
+month with the highest EVI value for each pixel.  
 The qualityMosaic() function is very useful for creating an image composite
 which maximizes an arbitrary band in this case the 'Mean' band. 
-We map across each year and this results in an image collection with an image for each year.
+We map across each year and this results in an image collection
+with an image for each year.
 */
 
 var maxmonthbyyear = ee.ImageCollection.fromImages(
@@ -181,8 +183,9 @@ var maxmonthbyyear = ee.ImageCollection.fromImages(
 print(maxmonthbyyear,"maxmonthbyyear");
 
 /*
-For this particular analysis we were interested in the most common month to find the max EVI
-so we select only the 'month' band from the image collection and reduce the image collection to
+For this particular analysis we were interested in the most common month 
+to find the max EVI so we select only the 'month' band from the 
+image collection and reduce the image collection to
 a single image collection using the mode() function
 */
 
@@ -193,8 +196,8 @@ modemaxevimonth=modemaxevimonth.reproject({
      scale:4638.312116386213})
      
 /*
-Now we have produced an image of the max EVI month for the whole world! We can now find out some
-more about these data and visualize
+Now we have produced an image of the max EVI month for the whole world! 
+We can now find out some more about these data and visualize
 */
 print(modemaxevimonth)
 
@@ -208,9 +211,8 @@ June or July.  This is what we would expect and a good validation for our analys
 */
 
 /*
-To finish we export our analysis to Google Drive for further analysis. Because we want to export
-global data, we create a bounding region for the whole globe, ensuring that none of our data is
-lost
+To finish we export our analysis to Google Drive for further analysis. 
+Because we want to export global data, we create a bounding region for the whole globe.
 */
 
 var unboundedGeo = ee.Geometry.Polygon([-180, 88, 0, 88, 180, 88, 180, -88, 0, -88, -180, -88], null, false);
