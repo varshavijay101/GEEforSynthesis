@@ -164,7 +164,10 @@ print('meanevimap',meanevimap)
 /*
 Now the function below contains a function which returns a new image collection from
 the image collection meanevi. In it for each year we calculate the month with the highest
-EVI value for each pixel.  This results in an image collection with an image for each year
+EVI value for each pixel.  
+The qualityMosaic() function is very useful for creating an image composite
+which maximizes an arbitrary band in this case the 'Mean' band. 
+We map across each year and this results in an image collection with an image for each year.
 */
 
 var maxmonthbyyear = ee.ImageCollection.fromImages(
