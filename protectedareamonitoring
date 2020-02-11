@@ -32,4 +32,6 @@ We first identify the two parks of interest from the WDPA dataset
 (already imported in the code editor) 
 
 
-var manas=wdpa.
+var manasnp=wdpa.
+
+var manas  
