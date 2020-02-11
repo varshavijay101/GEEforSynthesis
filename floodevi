@@ -148,8 +148,7 @@ float type
 var add_bands = function(image) {
   image = ee.Image(image);
   return image.addBands(ee.Image.constant(ee.Number.parse(image.date()
-  .format("M"))).rename('month').float()
-   .reproject(meanevi.first().projection()));
+  .format("M"))).rename('month').float());
 };
 
 var meanevimap = meanevi.map(add_bands)//Map on image collection 
@@ -172,8 +171,7 @@ var maxmonthbyyear = ee.ImageCollection.fromImages(
       years.map(function (y) {
         return meanevimap.filter(ee.Filter.calendarRange(y, y, 'year'))
                     .qualityMosaic('Mean')
-                    .set('year', y)
-                    .reproject(meanevi.first().projection());
+                    .set('year', y);
 }));
 
 
@@ -187,16 +185,31 @@ a single image collection using the mode() function
 
 var maxmonth=maxmonthbyyear.select('month')
 var modemaxevimonth=maxmonth.mode()
+modemaxevimonth=modemaxevimonth.reproject({
+     crs: meanevi.first().projection().crs(),
+     scale:4638.312116386213})
+     
+/*
+Now we have produced an image of the max EVI month for the whole world! We can now find out some
+more about these data and visualize
+*/
 print(modemaxevimonth)
 
-Map.addLayer(modemaxevimonth,{},'modemaxevimonth')
-//print("meanevi",meanevi.first().select('month').projection().nominalScale())
-print("meanevimap",meanevimap.first().select('month').projection().nominalScale())
-print("meanevimap",meanevimap.first().select('month').projection())
+Map.addLayer(modemaxevimonth,{min:1,max:12,palette: ['blue','green','yellow','red']},'modemaxevimonth')
 
-print("maxmonthbyyear",maxmonthbyyear.first().select('Mean').projection().nominalScale())
-print(modemaxevimonth.projection().nominalScale())
-//Export region for global image data
+
+/*
+Cool! We can begin to see some trends in these values by navigating to different places.
+Where we are located in Temperate North America, the month with the max EVI (vegetation) is
+June or July.  This is what we would expect and a good validation for our analysis!
+*/
+
+/*
+To finish we export our analysis to Google Drive for further analysis. Because we want to export
+global data, we create a bounding region for the whole globe, ensuring that none of our data is
+lost
+*/
+
 var unboundedGeo = ee.Geometry.Polygon([-180, 88, 0, 88, 180, 88, 180, -88, 0, -88, -180, -88], null, false);
 
 Export.image.toDrive({
@@ -204,75 +217,6 @@ Export.image.toDrive({
   description: 'modemaxevimonth',
   region: unboundedGeo,
   crs: 'EPSG:4326',
+  scale:4638.312116386213,//It is good practice to specify projections and scale when exporting
   maxPixels: 1e13
 });
-
-
-//var maxevimonth = meanevi.qualityMosaic('Mean').select('month');
-//print(maxevimonth,'max')
-/*
-var byYear = ee.ImageCollection.fromImages(
-  years.map(function(y) {
-      return meanevi
-        .filter(ee.Filter.neq('Mean', null))
-        .filter(ee.Filter.calendarRange(y, y, 'year'))
-        .max()
-        .set('date', ).set('year', y);
-  });
-}).flatten());
-
-print(byMonthYear)
-print(meanevi)
-/*
-///////Other data processing...ignore
-///Adjust the scale of EVI input data and create monthly composites
-var terrevi=ee.ImageCollection(terraevi).select('EVI')
-//print(terrevi.first())
-var aqevi=ee.ImageCollection(aquaevi).select('EVI')
-var months = ee.List.sequence(1, 12);
-
-var compositeterraevi = ee.ImageCollection.fromImages(months.map(function(m) {
-  var filtered = terrevi.filter(ee.Filter.calendarRange({
-    start: m,
-    field: 'month'
-  }));
-  var median = filtered.ee.Reducer.median();
-  return median
-      .set('month', m);
-}));
-
-//print(compositeterraevi)
-*/
-
-/*
-In the original analysis the primary deforestation date 
-(found in the Forest_Los property of each site) was determined using the total
-catchment area, but for the sake of our analysis lets determine the most frequent
-deforestation date for pixels within each of our sample regions.
-*/
-
-/*
-Load Hansen forest loss and extract mean loss year for 
-deforested pixels in each sample location
-*/
-var lossyear=hansen.select('lossyear')
-var lossyearmask=lossyear.mask(lossyear.gt(0))
-Map.addLayer(lossyearmask)
-//Map.addLayer(lossyear,{min:1,max:18},'lossyear')
-
-var sampleloss=lossyearmask
-.reduceRegions({
-  collection: sitesbuff,
-  reducer: ee.Reducer.mode().unweighted(),
-  scale: 30,
-})
-
-print(sampleloss)
-
-/*
-Printing these data show that there is some discrepancy between the value 
-determined for the catchment area vs the sample area.  This is probably
-fine for the sake of our analysis but its good to keep in mind when we
-further process the data.
-*/
-
