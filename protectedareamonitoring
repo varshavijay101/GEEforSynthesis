@@ -2,5 +2,13 @@
 var imageCollection = ee.ImageCollection("MODIS/006/MCD12Q1"),
     wdpa = ee.FeatureCollection("WCMC/WDPA/current/polygons");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
+////////// Monitoring of Land cover change in protected areas//////////////////
+///////////////////////in India and Bhutan //////////////////////////
+ /*
+ 2020 Varsha Vijay GEEforSynthesis 
+ https://sites.google.com/view/geeforsynthesis
+ 
+*/
+
 
 var manas=wdpa.
